@@ -7,7 +7,6 @@ interface Props {
     onChange: (next: LayoutOptions) => void;
     format: ExportFormat;
     onFormatChange: (f: ExportFormat) => void;
-    showEditorial?: boolean;
 }
 
 const FORMAT_OPTIONS: { id: ExportFormat; label: string; activeClass: string }[] = [
@@ -36,12 +35,11 @@ export function LayoutControls({
     onChange,
     format,
     onFormatChange,
-    showEditorial = false,
 }: Props) {
     const setField = (key: keyof LayoutOptions, v: number | boolean) =>
         onChange({ ...value, [key]: v });
 
-    const presets = LAYOUT_PRESETS.filter((p) => (p.editorialOnly ? showEditorial : true));
+    const presets = LAYOUT_PRESETS;
     const active = activePresetId(value);
     const activePreset = presets.find((p) => p.id === active);
 
@@ -61,14 +59,7 @@ export function LayoutControls({
                                 key={o.id}
                                 type="button"
                                 aria-pressed={isSelected}
-                                onClick={() => {
-                                    // Editorial is PDF-only; clear it when leaving PDF so the
-                                    // stored layout can't keep a stale editorial=true on Word.
-                                    if (o.id !== "pdf" && value.editorial) {
-                                        onChange({ ...value, editorial: false });
-                                    }
-                                    onFormatChange(o.id);
-                                }}
+                                onClick={() => onFormatChange(o.id)}
                                 className={`rounded-md px-4 py-1 text-xs font-semibold transition ${
                                     isSelected ? o.activeClass : "text-brand-text-soft hover:bg-brand-card"
                                 }`}

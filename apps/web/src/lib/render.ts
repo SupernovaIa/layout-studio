@@ -722,7 +722,7 @@ export interface ReadingBlock {
 }
 
 export interface ReadingDoc {
-    /** Frontmatter (titulo resolved by `_editorial_content`). */
+    /** Frontmatter (titulo resolved by `prepare_reading_content`). */
     meta: Record<string, unknown>;
     /** Content blocks with the cover title stripped and heading levels normalised. */
     blocks: ReadingBlock[];
@@ -748,10 +748,10 @@ function fsPngToBlobUrl(pyodide: any, path: string): string | null {
 }
 
 /**
- * Parse `markdown` into the same blocks the editorial PDF renders — minus the
- * cover — for the HTML reading view. Mermaid diagrams and `$…$` math are
- * rasterized (reusing the PDF pipeline) and exposed as blob URLs; FS-staged
- * image sources are rewritten to blob URLs in place.
+ * Parse `markdown` into normalised content blocks — minus the cover title — for
+ * the HTML reading view. Mermaid diagrams and `$…$` math are rasterized
+ * (reusing the PDF pipeline) and exposed as blob URLs; FS-staged image sources
+ * are rewritten to blob URLs in place.
  */
 export async function parseReadingDoc({ markdown, brand, paletteColors }: ParseArgs): Promise<ReadingDoc> {
     const pyodide = await getPyodide();
@@ -765,17 +765,16 @@ export async function parseReadingDoc({ markdown, brand, paletteColors }: ParseA
     pyodide.globals.set("md_text", processedMd);
     const result = await pyodide.runPythonAsync(`
 import json
-from layout_studio_renderer.parser import parse_markdown
-from layout_studio_renderer.editorial import _editorial_content, _AYU
-from layout_studio_renderer.code_highlight import highlight as _highlight
+from layout_studio_renderer.parser import parse_markdown, prepare_reading_content
+from layout_studio_renderer.code_highlight import highlight as _highlight, READING_PALETTE
 
 _meta, _blocks = parse_markdown(md_text)
-_meta, _content = _editorial_content(_meta, _blocks)
-# Tokenize fenced code with the SAME Pygments lexer + Ayu Mirage palette the
-# editorial PDF uses, so the web reading view's code highlighting is identical.
+_meta, _content = prepare_reading_content(_meta, _blocks)
+# Tokenize fenced code with the Pygments lexer + Ayu Mirage palette so the
+# web reading view's code highlighting is consistent.
 for _b in _content:
     if _b.get("type") == "code":
-        _chunks = _highlight(_b.get("text", "") or "", _b.get("lang", "") or "", "default", _AYU)
+        _chunks = _highlight(_b.get("text", "") or "", _b.get("lang", "") or "", "default", READING_PALETTE)
         _b["tokens"] = [[_c, bool(_bd), _t] for (_c, _bd, _t) in _chunks]
 json.dumps({"meta": _meta, "blocks": _content})
 `);

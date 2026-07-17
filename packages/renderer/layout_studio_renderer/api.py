@@ -75,11 +75,7 @@ def render_markdown_to_pdf(
         c.setAuthor(brand.document_author)
 
     bp = Path(base_path) if base_path is not None else None
-    if layout.editorial:
-        from .editorial import render_editorial
-        render_editorial(c, meta, blocks, brand, layout, bp, formulas)
-    else:
-        render_blocks_to_canvas(c, meta, blocks, brand, layout, bp, formulas)
+    render_blocks_to_canvas(c, meta, blocks, brand, layout, bp, formulas)
     c.save()
     return buf.getvalue()
 

@@ -308,3 +308,49 @@ def parse_markdown(md_text: str) -> tuple[dict, list[dict]]:
         i += 1
 
     return meta, processed
+
+
+def prepare_reading_content(meta: dict, blocks: list) -> tuple[dict, list]:
+    """Resolve the document title and normalise heading levels.
+
+    Handles both heading conventions the parser can emit:
+
+      * `#`=title, `##`=section, `###`=subsection: the lone `#` is the document
+        title; the rest keep their levels.
+      * `#`=section, `##`=subsection, ...: there are `#` headings that aren't the
+        title, so every level is shifted down one (h1_doc→h1, h1→h2, h2→h3) and
+        nothing is dropped.
+
+    Returns the meta (with a resolved `titulo`) and the content blocks with the
+    title heading removed. Used by the on-screen reading view.
+    """
+    cover_title = str(meta.get("titulo") or meta.get("title") or "").strip()
+    h1doc_idxs = [i for i, b in enumerate(blocks) if b["type"] == "h1_doc"]
+
+    title_idx = None
+    if not cover_title and h1doc_idxs:           # no frontmatter title → first `#`
+        title_idx = h1doc_idxs[0]
+        cover_title = blocks[title_idx]["text"].strip()
+    elif cover_title:                            # title is the `#` equal to it
+        for i in h1doc_idxs:
+            if blocks[i]["text"].strip() == cover_title:
+                title_idx = i
+                break
+
+    # Shifted convention when a `#` heading exists that isn't the title.
+    shift = any(i != title_idx for i in h1doc_idxs)
+    bump = {"h1_doc": "h1", "h1": "h2", "h2": "h3", "h3": "h3"}
+
+    content: list = []
+    for i, b in enumerate(blocks):
+        if i == title_idx:
+            continue
+        nb = dict(b)
+        if b["type"] == "h1_doc":
+            nb["type"] = "h1"                    # stray `#` → a section
+        if shift:
+            nb["type"] = bump.get(b["type"], nb["type"])
+        content.append(nb)
+
+    meta = {**meta, "titulo": cover_title or "Documento"}
+    return meta, content

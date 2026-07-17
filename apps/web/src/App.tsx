@@ -109,8 +109,7 @@ export default function App() {
                 setBrandColors(manifest.colors);
                 // When this brand comes from a restored draft, its saved layout and
                 // palette win over the brand's defaults (consumed once). Otherwise
-                // apply the brand's layout defaults (e.g. Prometeo's editorial book
-                // layout: 60pt margins, 11/18 body, editorial mode on).
+                // apply the brand's layout defaults (margins, body size, etc.).
                 const pending =
                     restoredRef.current?.selectedBrand === selectedBrand ? restoredRef.current : null;
 
@@ -270,20 +269,17 @@ export default function App() {
                         {selectedBrand === "personalizada" && (
                             <LogoUpload value={customLogo} onChange={setCustomLogo} />
                         )}
-                        {!layout.editorial && (
-                            <ClientLogoSelector
-                                slugs={brandSlugs}
-                                excludeSlug={selectedBrand}
-                                value={clientLogo}
-                                onChange={setClientLogo}
-                            />
-                        )}
+                        <ClientLogoSelector
+                            slugs={brandSlugs}
+                            excludeSlug={selectedBrand}
+                            value={clientLogo}
+                            onChange={setClientLogo}
+                        />
                         <LayoutControls
                             value={layout}
                             onChange={setLayout}
                             format={format}
                             onFormatChange={setFormat}
-                            showEditorial={selectedBrand === "prometeo"}
                         />
                         {effectiveColors && (
                             <details className="group/adv overflow-hidden rounded-xl border border-brand-line bg-brand-card backdrop-blur-xl shadow-sm">

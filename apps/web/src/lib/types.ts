@@ -80,8 +80,6 @@ export interface LayoutOptions {
     justify: boolean;
     /** Word hyphenation for justified text (language from the frontmatter). */
     hyphenate: boolean;
-    /** Editorial book layout (cover, auto index, dividers, Ayu Mirage). */
-    editorial: boolean;
 }
 
 export const DEFAULT_LAYOUT: LayoutOptions = {
@@ -96,7 +94,6 @@ export const DEFAULT_LAYOUT: LayoutOptions = {
     h3_size: 11,
     justify: true,
     hyphenate: false,
-    editorial: false,
 };
 
 export interface BrandCatalog {

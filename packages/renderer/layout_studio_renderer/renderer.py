@@ -377,9 +377,7 @@ class Renderer:
         self._hyphenator = resolve_hyphenator(layout, meta)
 
         # Working palette: a fully-resolved Theme (every role + fallback decided
-        # in one place) copied onto mutable attributes. They stay mutable because
-        # the editorial layer temporarily swaps some (e.g. the table header band)
-        # around a single render.
+        # in one place) copied onto mutable attributes.
         theme = Theme.resolve(brand.colors)
         self.col_dark = theme.dark
         self.col_light = theme.light
@@ -719,7 +717,7 @@ class Renderer:
         JetBrains Mono (which covers them): brand green for ok, classic red for
         not-ok.
         """
-        register_mono_fonts()  # editorial path doesn't register it otherwise
+        register_mono_fonts()  # ensure the mono font is registered for code blocks
         c = self.c
         size = self.opts.body_size
         lead = self.opts.body_lead

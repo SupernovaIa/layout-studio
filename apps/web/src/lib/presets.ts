@@ -12,10 +12,8 @@ export interface LayoutPreset {
     description: string;
     /** Fields this preset sets; everything else is left as-is. */
     values: Partial<LayoutOptions>;
-    /** Editorial is a PDF-only render path. */
+    /** Preset only available for the PDF render path. */
     pdfOnly?: boolean;
-    /** Only offered for brands whose identity includes the editorial book layout. */
-    editorialOnly?: boolean;
 }
 
 export const LAYOUT_PRESETS: LayoutPreset[] = [
@@ -25,7 +23,7 @@ export const LAYOUT_PRESETS: LayoutPreset[] = [
         description: "Informe técnico denso: más texto por página.",
         values: {
             margin_left: 43, margin_right: 43, margin_top: 48, margin_bottom: 48,
-            body_size: 9.5, body_lead: 14.5, editorial: false,
+            body_size: 9.5, body_lead: 14.5,
         },
     },
     {
@@ -34,30 +32,20 @@ export const LAYOUT_PRESETS: LayoutPreset[] = [
         description: "Más aire e interlineado, cuerpo mayor.",
         values: {
             margin_left: 56, margin_right: 56, margin_top: 62, margin_bottom: 56,
-            body_size: 10.5, body_lead: 16.5, editorial: false,
+            body_size: 10.5, body_lead: 16.5,
         },
-    },
-    {
-        id: "editorial",
-        label: "Editorial",
-        description: "Libro: portada, índice, portadillas y código Ayu Mirage.",
-        values: { editorial: true },
-        pdfOnly: true,
-        editorialOnly: true,
     },
 ];
 
 // Fields compared to decide whether the current layout still matches a density
-// preset (editorial is matched separately by its own flag).
+// preset.
 const DENSITY_KEYS: (keyof LayoutOptions)[] = [
     "margin_left", "margin_right", "margin_top", "margin_bottom", "body_size", "body_lead",
 ];
 
 /** The preset the current layout matches, or null when it's been fine-tuned. */
 export function activePresetId(layout: LayoutOptions): string | null {
-    if (layout.editorial) return "editorial";
     for (const preset of LAYOUT_PRESETS) {
-        if (preset.editorialOnly) continue;
         const matches = DENSITY_KEYS.every((k) => {
             const target = preset.values[k] as number | undefined;
             // Tolerant compare so a non-binary-fraction preset value can't silently

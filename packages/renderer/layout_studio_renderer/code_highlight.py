@@ -32,6 +32,18 @@ _BRAND_TOKEN_ORDER = [
 _DEFAULT_STYLE = "friendly"
 _STYLE_CACHE: dict[str, object] = {}
 
+# Dark code palette (Ayu Mirage, a public open-source editor theme). Passed as a
+# `brand_palette` so the on-screen reading view highlights code consistently.
+READING_PALETTE: dict[str, tuple[str, bool]] = {
+    "keyword": ("FFA759", False),
+    "func": ("FFD580", False),
+    "builtin": ("FFD580", False),
+    "string": ("BAE67E", False),
+    "number": ("FFCC66", False),
+    "comment": ("5C6773", False),
+    "operator": ("FFCC66", False),
+}
+
 
 def _get_style(name: str):
     style = _STYLE_CACHE.get(name)

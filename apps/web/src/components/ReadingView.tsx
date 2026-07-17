@@ -1,10 +1,9 @@
 /**
- * Adaptive reading view — the editorial book layout rendered as accessible,
- * responsive HTML (no cover, no auto-index page). It mirrors the PDF look
- * (section dividers, justified body with colored terms, crema callout boxes,
- * Prometeo-style tables, Ayu code) so the screen reading experience matches
- * the exported book, while the left sidebar gives a discreet "where am I"
- * index with scroll-spy.
+ * Adaptive reading view — the document rendered as accessible, responsive HTML.
+ * It mirrors the PDF look (section dividers, justified body with colored terms,
+ * crema callout boxes, styled tables, Ayu code) so the screen reading experience
+ * matches the export, while the left sidebar gives a discreet "where am I" index
+ * with scroll-spy.
  *
  * Parsing happens in Python (via `parseReadingDoc`) so the blocks here are the
  * exact same ones the PDF renders — the two outputs can never drift apart.
@@ -114,7 +113,7 @@ function buildModel(blocks: ReadingBlock[]): { nodes: Node[]; toc: TocEntry[] } 
 // --- inline markdown -------------------------------------------------------
 
 // Bold allows a lone `*` inside (`**a*b**`) via `\*(?!\*)`, but never swallows
-// the closing `**`, so it stays in step with the editorial PDF's inline parsing.
+// the closing `**`, so it stays in step with the PDF's inline parsing.
 const INLINE_RE =
     /(`[^`]+`)|(\*\*(?:[^*]|\*(?!\*))+\*\*)|(\*[^*]+\*|_[^_]+_)|(\[[^\]]+\]\([^)]+\))|(⟦F\d+⟧)/g;
 
@@ -598,7 +597,7 @@ export const READING_CSS = `
 .rv-callout-body { margin: 0; padding: 14px; font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
     font-size: 13px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
 
-/* tables — Prometeo-style green header */
+/* tables — brand-colored header */
 .rv-table-wrap { overflow-x: auto; margin: 18px 0; }
 .rv-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .rv-table th, .rv-table td { border: 1px solid var(--brand-light); padding: 9px 12px; text-align: left; vertical-align: top; }

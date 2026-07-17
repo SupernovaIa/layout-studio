@@ -77,7 +77,7 @@ class BrandConfig:
     logo_fallback_text: str = ""
     document_author: str = ""
     # Optional co-branding logo (e.g. a client's) drawn opposite the brand logo
-    # in the page footer. Base layout only — editorial mode ignores it.
+    # in the page footer.
     client_logo_path: Path | None = None
 
 
@@ -114,10 +114,6 @@ class LayoutOptions:
     # theme name; when None a sensible default is picked per light/dark mode.
     code_dark: bool = False
     code_style: str | None = None
-
-    # Editorial mode: full Prometeo book layout — bleed cover, auto index with
-    # page numbers, section dividers, isotipo/folio chrome, Ayu Mirage code.
-    editorial: bool = False
 
     @property
     def content_width(self) -> float:
