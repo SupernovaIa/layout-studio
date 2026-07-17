@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://layout-studio/brands/brand.schema.json",
+    "title": "Brand manifest",
+    "description": "Contract for /brands/<slug>/brand.json. Mirrored by apps/web/src/lib/brand-schema.ts (the authoritative runtime check) — keep both in sync.",
+    "type": "object",
+    "required": ["slug", "name", "colors", "font_family", "font_files"],
+    "properties": {
+        "$schema": { "type": "string" },
+        "slug": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "kebab-case; must match the folder name."
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "font_family": { "type": "string", "minLength": 1 },
+        "colors": {
+            "type": "object",
+            "description": "Spread into the engine's BrandColors(**colors); unknown keys are rejected.",
+            "required": ["primary_dark", "primary_light", "primary_mid"],
+            "additionalProperties": false,
+            "patternProperties": {
+                "^(primary_dark|primary_light|primary_mid|text|text_soft|line|bg_soft|quote_bg|white|table_header_bg|header_rule|footer_rule|heading|page_number)$": {
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                }
+            }
+        },
+        "font_files": {
+            "type": "object",
+            "required": ["regular", "bold", "medium", "light", "italic"],
+            "properties": {
+                "regular": { "type": "string", "minLength": 1 },
+                "bold": { "type": "string", "minLength": 1 },
+                "medium": { "type": "string", "minLength": 1 },
+                "light": { "type": "string", "minLength": 1 },
+                "italic": { "type": "string", "minLength": 1 },
+                "mono": { "type": "string", "minLength": 1 }
+            }
+        },
+        "logo_file": { "type": "string" },
+        "icon_file": { "type": "string" },
+        "logo_fallback_text": { "type": "string" },
+        "document_author": { "type": "string" },
+        "layout_defaults": { "type": "object" },
+        "has_palettes": { "type": "boolean" },
+        "palettes_source": { "type": "string", "enum": ["catalog"] }
+    }
+}

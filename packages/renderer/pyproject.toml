@@ -1,0 +1,33 @@
+[project]
+name = "layout-studio-renderer"
+version = "0.9.0"
+description = "Brand-aware Markdown → PDF renderer (engine of layout-studio)."
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "reportlab>=4.0",
+    "pygments>=2.17",
+    "python-docx>=1.0",
+]
+
+[project.optional-dependencies]
+# Word hyphenation is opt-in (LayoutOptions.hyphenate). Kept out of core deps so
+# the web build doesn't force every Pyodide session to fetch it; the web installs
+# it on demand and the renderer degrades gracefully if it is absent.
+hyphenation = [
+    "pyphen>=0.14",
+]
+dev = [
+    "pytest>=8.0",
+    "pyphen>=0.14",
+]
+
+[build-system]
+# Pinned so the wheel build stays byte-reproducible: the CI guard rebuilds the
+# committed wheel and fails on any diff, and a hatchling update that changed its
+# output would otherwise false-positive on every PR.
+requires = ["hatchling==1.30.1"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["layout_studio_renderer"]

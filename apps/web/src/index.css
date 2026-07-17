@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* thePower "suite" look, themeable. Components reference semantic brand-*
+ * utilities; those resolve to CSS variables that swap between light and dark
+ * via the `.dark` class on <html>. Dark = glassmorphism (like mail-maker /
+ * ThePowerDeck); light = clean flat surfaces. */
+@theme inline {
+    /* Display: titles. Body: everything else. Mono: micro-labels + metadata. */
+    --font-display:
+        "Sora", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans:
+        "Poppins", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    --color-brand-dark: var(--brand-dark);
+    --color-brand-mid: var(--brand-mid);
+    --color-brand-mint: var(--brand-mint);
+    --color-brand-coral: var(--brand-coral);
+    --color-brand-bg: var(--brand-bg);
+    --color-brand-surface: var(--brand-surface);
+    --color-brand-card: var(--brand-card);
+    --color-brand-line: var(--brand-line);
+    --color-brand-line-strong: var(--brand-line-strong);
+    --color-brand-ink: var(--brand-ink);
+    --color-brand-ink-soft: var(--brand-ink-soft);
+    --color-brand-ink-mute: var(--brand-ink-mute);
+    --color-brand-logo: var(--brand-logo);
+}
+
+/* ── Light (default) ─────────────────────────────────────────── */
+:root {
+    color-scheme: light;
+    --brand-dark: #1c3c42; /* dark teal — tooltips, button label */
+    --brand-mid: #3a6870; /* eyebrow / label */
+    --brand-mint: #82c4af; /* accent */
+    --brand-coral: #e8654a; /* warnings */
+    --brand-bg: #eef4f2; /* input / subtle inner surface */
+    --brand-surface: #f8fbfa; /* page base */
+    --brand-card: #ffffff; /* panel fill */
+    --brand-line: #d9e4e2; /* borders */
+    --brand-line-strong: #b8cac6; /* hover borders */
+    --brand-ink: #142d32; /* primary text */
+    --brand-ink-soft: #46626a; /* secondary text */
+    --brand-ink-mute: #6b858c; /* tertiary / captions */
+    --brand-logo: transparent; /* no chip in light — logos sit on the card */
+
+    --app-bg: linear-gradient(180deg, #f8fbfa 0%, #eef4f2 100%);
+    --aurora-opacity: 0;
+    --glass-fill: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Dark (glass) ────────────────────────────────────────────── */
+:root.dark {
+    color-scheme: dark;
+    --brand-dark: #0a1a20; /* deep ink — tooltips, button label */
+    --brand-mid: #aebfc3; /* eyebrow / label (lifted for legibility) */
+    --brand-mint: #9edcc2;
+    --brand-coral: #ff8f70;
+    --brand-bg: #0e2529;
+    --brand-surface: #08161c;
+    --brand-card: rgba(16, 40, 47, 0.62);
+    --brand-line: rgba(158, 220, 194, 0.14);
+    --brand-line-strong: rgba(158, 220, 194, 0.32);
+    --brand-ink: #f3f8f9; /* primary text — near white */
+    --brand-ink-soft: #c6d4d8; /* secondary — lifted from grey */
+    --brand-ink-mute: #9aacb1; /* tertiary — lifted from grey */
+    --brand-logo: #d7e0e1; /* soft chip so dark logos stay visible */
+
+    --app-bg:
+        radial-gradient(1100px 700px at 12% -8%, rgba(27, 65, 75, 0.55), transparent 60%),
+        radial-gradient(900px 600px at 105% 6%, rgba(98, 198, 255, 0.1), transparent 55%),
+        radial-gradient(1000px 800px at 80% 108%, rgba(158, 220, 194, 0.08), transparent 55%),
+        linear-gradient(160deg, #050b0f 0%, #08161c 55%, #060f13 100%);
+    --aurora-opacity: 0.5;
+    --glass-fill: linear-gradient(165deg, rgba(18, 48, 55, 0.6), rgba(9, 22, 27, 0.5));
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+/* Base color on the root so the scroll rubber-band area matches the theme
+ * (the body gradient alone leaves <html> white on overscroll). */
+html {
+    background-color: var(--brand-surface);
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--brand-ink);
+    background: var(--app-bg);
+    background-attachment: fixed;
+}
+
+/* Slow-drifting aurora behind everything (dark only; hidden in light). */
+.aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+.aurora::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    filter: blur(80px);
+    opacity: var(--aurora-opacity);
+    mix-blend-mode: screen;
+    background:
+        radial-gradient(38% 40% at 12% 8%, rgba(110, 206, 212, 0.32), transparent 66%),
+        radial-gradient(34% 36% at 88% 90%, rgba(158, 220, 194, 0.24), transparent 66%),
+        radial-gradient(26% 28% at 72% 16%, rgba(98, 198, 255, 0.12), transparent 62%);
+    animation: aurora-drift 42s ease-in-out infinite alternate;
+    will-change: transform;
+}
+@keyframes aurora-drift {
+    from {
+        transform: translate3d(-2%, -1.5%, 0) scale(1);
+    }
+    to {
+        transform: translate3d(2.5%, 2%, 0) scale(1.08);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .aurora::before {
+        animation: none;
+    }
+}
+
+/* Thin mint scrollbars. */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(158, 220, 194, 0.22) transparent;
+}
+*::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+    background: rgba(158, 220, 194, 0.2);
+    border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(158, 220, 194, 0.4);
+}

@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  web:
+    name: web (typecheck + build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter @layout-studio/web build
+
+  renderer:
+    name: renderer (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install renderer + dev deps
+        working-directory: packages/renderer
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Run pytest
+        working-directory: packages/renderer
+        run: pytest
+
+      # The web ships the committed wheel as-is (the container build does not rebuild it),
+      # so a wheel that lags behind the Python source would deploy stale engine
+      # code while pytest still passes. Rebuild it (the build is reproducible)
+      # and fail if it no longer matches what is committed.
+      - name: Verify committed wheel matches source
+        run: |
+          bash scripts/build-wheel.sh
+          if [ -n "$(git status --porcelain apps/web/public/wheels/)" ]; then
+            echo "::error::Committed wheel is stale. Run 'pnpm build:wheel' and commit apps/web/public/wheels/."
+            git status --porcelain apps/web/public/wheels/
+            exit 1
+          fi

@@ -1,0 +1,22 @@
+{
+    "$schema": "../brand.schema.json",
+    "slug": "personalizada",
+    "name": "Personalizada",
+    "palettes_source": "catalog",
+    "colors": {
+        "primary_dark": "#1C3C42",
+        "primary_light": "#82C4AF",
+        "primary_mid": "#3A6870"
+    },
+    "font_family": "Poppins",
+    "font_files": {
+        "regular": "fonts/regular.ttf",
+        "bold": "fonts/bold.ttf",
+        "medium": "fonts/medium.ttf",
+        "light": "fonts/light.ttf",
+        "italic": "fonts/italic.ttf"
+    },
+    "icon_file": "icon.svg",
+    "logo_fallback_text": "",
+    "document_author": ""
+}

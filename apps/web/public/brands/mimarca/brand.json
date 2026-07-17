@@ -1,0 +1,22 @@
+{
+    "$schema": "../brand.schema.json",
+    "slug": "mimarca",
+    "name": "Mi Marca",
+    "colors": {
+        "primary_dark": "#1B2A4A",
+        "primary_light": "#A9C4F5",
+        "primary_mid": "#3A5CA8",
+        "bg_soft": "#F1F5FC",
+        "quote_bg": "#F1F5FC"
+    },
+    "font_family": "Poppins",
+    "font_files": {
+        "regular": "fonts/regular.ttf",
+        "bold": "fonts/bold.ttf",
+        "medium": "fonts/medium.ttf",
+        "light": "fonts/light.ttf",
+        "italic": "fonts/italic.ttf"
+    },
+    "logo_fallback_text": "Mi Marca",
+    "document_author": "Mi Marca"
+}
