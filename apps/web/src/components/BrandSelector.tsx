@@ -71,9 +71,9 @@ export function BrandSelector({ slugs, selected, onSelect }: Props) {
                                 type="button"
                                 title={t ? brandDisplayName(t.name) : slug}
                                 onClick={() => onSelect(slug)}
-                                className={`group flex flex-col items-center gap-1.5 rounded-lg border-2 p-2 text-center transition focus:outline-none focus:ring-2 focus:ring-brand-mint/40 ${
+                                className={`group flex flex-col items-center gap-1.5 rounded-lg border-2 p-2 text-center transition focus:outline-none focus:ring-2 focus:ring-brand-accent/40 ${
                                     isSel
-                                        ? "border-brand-mint bg-brand-mint/10"
+                                        ? "border-brand-accent bg-brand-accent/10"
                                         : "border-brand-line hover:border-brand-line-strong hover:bg-brand-bg/60"
                                 }`}
                             >

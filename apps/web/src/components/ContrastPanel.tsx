@@ -24,8 +24,8 @@ const PAIRS: { label: string; fg: Role; bg: Role }[] = [
 ];
 
 const BADGE: Record<WcagLevel, string> = {
-    AAA: "border-brand-mint/50 bg-brand-mint/15 text-brand-ink",
-    AA: "border-brand-mint/50 bg-brand-mint/15 text-brand-ink",
+    AAA: "border-brand-accent/50 bg-brand-accent/15 text-brand-ink",
+    AA: "border-brand-accent/50 bg-brand-accent/15 text-brand-ink",
     "AA grande": "border-amber-400/50 bg-amber-100 text-amber-700",
     Falla: "border-brand-coral/40 bg-brand-coral/10 text-brand-coral",
 };

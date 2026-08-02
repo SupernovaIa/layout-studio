@@ -91,7 +91,7 @@ export function LayoutControls({
                                 onClick={() => onChange({ ...value, ...p.values })}
                                 className={`rounded-md px-4 py-1 text-xs font-semibold transition ${
                                     isSelected
-                                        ? "bg-brand-mint text-brand-dark shadow-sm"
+                                        ? "bg-brand-accent text-brand-dark shadow-sm"
                                         : "text-brand-text-soft hover:bg-brand-card"
                                 } ${disabled ? "cursor-not-allowed opacity-40 hover:bg-transparent" : ""}`}
                             >
@@ -118,7 +118,7 @@ export function LayoutControls({
                         type="checkbox"
                         checked={value.justify}
                         onChange={(e) => setField("justify", e.target.checked)}
-                        className="h-4 w-4 rounded border-brand-line text-brand-ink accent-brand-mint focus:ring-2 focus:ring-brand-mint/30"
+                        className="h-4 w-4 rounded border-brand-line text-brand-ink accent-brand-accent focus:ring-2 focus:ring-brand-accent/30"
                     />
                     Texto justificado
                 </label>
@@ -129,7 +129,7 @@ export function LayoutControls({
                         checked={value.hyphenate}
                         disabled={!value.justify}
                         onChange={(e) => setField("hyphenate", e.target.checked)}
-                        className="h-4 w-4 rounded border-brand-line text-brand-ink accent-brand-mint focus:ring-2 focus:ring-brand-mint/30 disabled:cursor-not-allowed"
+                        className="h-4 w-4 rounded border-brand-line text-brand-ink accent-brand-accent focus:ring-2 focus:ring-brand-accent/30 disabled:cursor-not-allowed"
                     />
                     Partición de palabras
                     <span className="group relative flex cursor-help items-center text-brand-ink-soft">
@@ -152,7 +152,7 @@ export function LayoutControls({
                                 step="0.5"
                                 value={value[key] as number}
                                 onChange={(e) => setField(key, Number(e.target.value))}
-                                className="mt-1 w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1.5 text-sm text-brand-ink focus:border-brand-mint focus:outline-none focus:ring-2 focus:ring-brand-mint/30"
+                                className="mt-1 w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1.5 text-sm text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
                             />
                         </label>
                     ))}

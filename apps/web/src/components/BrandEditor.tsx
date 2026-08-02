@@ -101,12 +101,12 @@ export function BrandEditor({ colors, custom, onChange, onReset, bare = false }:
                         value={base}
                         onChange={(e) => setBase(e.target.value)}
                         placeholder="#RRGGBB"
-                        className="w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1.5 font-mono text-xs text-brand-ink focus:border-brand-mint focus:outline-none focus:ring-2 focus:ring-brand-mint/30"
+                        className="w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1.5 font-mono text-xs text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
                     />
                     <button
                         type="button"
                         onClick={generate}
-                        className="shrink-0 rounded-md bg-brand-mint px-3 py-1.5 text-xs font-semibold text-brand-dark transition hover:brightness-110"
+                        className="shrink-0 rounded-md bg-brand-accent px-3 py-1.5 text-xs font-semibold text-brand-dark transition hover:brightness-110"
                     >
                         Generar
                     </button>
@@ -168,7 +168,7 @@ function ColorField({
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder="#RRGGBB"
-                className="w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1 font-mono text-xs text-brand-ink focus:border-brand-mint focus:outline-none focus:ring-2 focus:ring-brand-mint/30"
+                className="w-full rounded-md border border-brand-line bg-brand-bg px-2 py-1 font-mono text-xs text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
             />
         </label>
     );

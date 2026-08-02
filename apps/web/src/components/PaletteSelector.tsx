@@ -36,7 +36,7 @@ export function PaletteSelector({
                             className={[
                                 "h-6 w-6 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-1",
                                 isSelected
-                                    ? "scale-110 ring-2 ring-brand-mint ring-offset-1"
+                                    ? "scale-110 ring-2 ring-brand-accent ring-offset-1"
                                     : "opacity-70 hover:opacity-100",
                             ].join(" ")}
                             aria-pressed={isSelected}

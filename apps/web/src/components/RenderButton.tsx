@@ -160,10 +160,10 @@ export function RenderButton({
                 type="button"
                 disabled={blocked}
                 onClick={onClick}
-                className="group relative w-full overflow-hidden rounded-lg bg-[#2f6d78] px-4 py-3 text-sm font-semibold text-white shadow-md transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-brand-mint/40 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-brand-line disabled:text-brand-ink-mute disabled:shadow-none"
+                className="group relative w-full overflow-hidden rounded-lg bg-[#2f6d78] px-4 py-3 text-sm font-semibold text-white shadow-md transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-brand-accent/40 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-brand-line disabled:text-brand-ink-mute disabled:shadow-none"
             >
                 <span className="relative">{label}</span>
-                <span className="absolute inset-y-0 right-0 w-1 bg-brand-mint opacity-0 transition group-hover:opacity-100 group-disabled:!opacity-0" />
+                <span className="absolute inset-y-0 right-0 w-1 bg-brand-accent opacity-0 transition group-hover:opacity-100 group-disabled:!opacity-0" />
             </button>
             {progress && progress.total > 0 ? (
                 <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-brand-line">

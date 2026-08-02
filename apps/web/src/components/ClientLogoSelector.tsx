@@ -71,8 +71,8 @@ export function ClientLogoSelector({ slugs, excludeSlug, value, onChange }: Prop
                     role="switch"
                     aria-checked={enabled}
                     onClick={toggle}
-                    className={`relative h-4 w-7 shrink-0 rounded-full transition focus:outline-none focus:ring-2 focus:ring-brand-mint/40 ${
-                        enabled ? "bg-brand-mint" : "bg-brand-line"
+                    className={`relative h-4 w-7 shrink-0 rounded-full transition focus:outline-none focus:ring-2 focus:ring-brand-accent/40 ${
+                        enabled ? "bg-brand-accent" : "bg-brand-line"
                     }`}
                 >
                     <span
@@ -94,9 +94,9 @@ export function ClientLogoSelector({ slugs, excludeSlug, value, onChange }: Prop
                                     type="button"
                                     title={brandDisplayName(o.name)}
                                     onClick={() => onChange(isSel ? null : { kind: "brand", slug: o.slug })}
-                                    className={`flex h-14 items-center justify-center rounded-lg border-2 p-2 transition focus:outline-none focus:ring-2 focus:ring-brand-mint/40 ${
+                                    className={`flex h-14 items-center justify-center rounded-lg border-2 p-2 transition focus:outline-none focus:ring-2 focus:ring-brand-accent/40 ${
                                         isSel
-                                            ? "border-brand-mint bg-brand-mint/10"
+                                            ? "border-brand-accent bg-brand-accent/10"
                                             : "border-brand-line bg-brand-logo hover:border-brand-line-strong hover:bg-brand-bg"
                                     }`}
                                 >
@@ -108,10 +108,10 @@ export function ClientLogoSelector({ slugs, excludeSlug, value, onChange }: Prop
                             type="button"
                             title={customFile ? customFile.name : "Subir un logo"}
                             onClick={() => inputRef.current?.click()}
-                            className={`flex h-14 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-dashed p-2 transition focus:outline-none focus:ring-2 focus:ring-brand-mint/40 ${
+                            className={`flex h-14 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-dashed p-2 transition focus:outline-none focus:ring-2 focus:ring-brand-accent/40 ${
                                 customFile
-                                    ? "border-brand-mint bg-brand-mint/10"
-                                    : "border-brand-line bg-brand-bg hover:border-brand-mint hover:bg-brand-mint/5"
+                                    ? "border-brand-accent bg-brand-accent/10"
+                                    : "border-brand-line bg-brand-bg hover:border-brand-accent hover:bg-brand-accent/5"
                             }`}
                         >
                             {customFile && customPreviewUrl ? (

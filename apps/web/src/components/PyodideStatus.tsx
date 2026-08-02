@@ -24,12 +24,12 @@ export function PyodideStatusBar() {
 
     const pct = Math.round(status.progress * 100);
     return (
-        <div role="status" aria-live="polite" className={`${base} border-brand-mint/50 text-brand-ink`}>
+        <div role="status" aria-live="polite" className={`${base} border-brand-accent/50 text-brand-ink`}>
             <div className="mb-2 flex items-center justify-between">
                 <span>Cargando motor…</span>
                 <span className="tabular-nums text-brand-ink-soft">{pct}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-brand-mint/20">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-brand-accent/20">
                 <div
                     className="h-full rounded-full bg-brand-mid transition-[width] duration-300 ease-out"
                     style={{ width: `${pct}%` }}

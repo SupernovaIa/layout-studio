@@ -113,7 +113,7 @@ export function InputPanel({
                 onDrop={onDrop}
                 className={`flex flex-1 flex-col rounded-xl border-2 ${
                     dragging
-                        ? "border-brand-mint bg-brand-mint/5"
+                        ? "border-brand-accent bg-brand-accent/5"
                         : "border-dashed border-brand-line bg-brand-card backdrop-blur-xl"
                 } p-5 shadow-sm transition`}
             >
@@ -211,7 +211,7 @@ export function InputPanel({
                             onChange={(e) => onMarkdownChange(e.target.value)}
                             placeholder="---&#10;titulo: Mi documento&#10;eyebrow: CASO PRÁCTICO 01&#10;---&#10;&#10;# Hola"
                             spellCheck={false}
-                            className="block min-h-[240px] w-full grow resize-y rounded-lg border border-brand-line bg-brand-bg/60 px-3 py-2.5 font-mono text-xs leading-relaxed text-brand-ink shadow-inner focus:border-brand-mint focus:bg-brand-bg focus:outline-none focus:ring-2 focus:ring-brand-mint/30"
+                            className="block min-h-[240px] w-full grow resize-y rounded-lg border border-brand-line bg-brand-bg/60 px-3 py-2.5 font-mono text-xs leading-relaxed text-brand-ink shadow-inner focus:border-brand-accent focus:bg-brand-bg focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
                         />
                     </>
                 )}

@@ -14,7 +14,7 @@
 
     --color-brand-dark: var(--brand-dark);
     --color-brand-mid: var(--brand-mid);
-    --color-brand-mint: var(--brand-mint);
+    --color-brand-accent: var(--brand-accent);
     --color-brand-coral: var(--brand-coral);
     --color-brand-bg: var(--brand-bg);
     --color-brand-surface: var(--brand-surface);
@@ -32,7 +32,7 @@
     color-scheme: light;
     --brand-dark: #1c3c42; /* dark teal — tooltips, button label */
     --brand-mid: #3a6870; /* eyebrow / label */
-    --brand-mint: #82c4af; /* accent */
+    --brand-accent: #82c4af; /* accent */
     --brand-coral: #e8654a; /* warnings */
     --brand-bg: #eef4f2; /* input / subtle inner surface */
     --brand-surface: #f8fbfa; /* page base */
@@ -54,7 +54,7 @@
     color-scheme: dark;
     --brand-dark: #0a1a20; /* deep ink — tooltips, button label */
     --brand-mid: #aebfc3; /* eyebrow / label (lifted for legibility) */
-    --brand-mint: #9edcc2;
+    --brand-accent: #9edcc2;
     --brand-coral: #ff8f70;
     --brand-bg: #0e2529;
     --brand-surface: #08161c;
