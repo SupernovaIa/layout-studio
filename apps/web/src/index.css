@@ -16,6 +16,7 @@
     --color-brand-dark: var(--brand-dark);
     --color-brand-mid: var(--brand-mid);
     --color-brand-accent: var(--brand-accent);
+    --color-brand-on-accent: var(--brand-on-accent);
     --color-brand-coral: var(--brand-coral);
     --color-brand-bg: var(--brand-bg);
     --color-brand-surface: var(--brand-surface);
@@ -34,6 +35,9 @@
     --brand-dark: #1b2430; /* deep slate — tooltips, button label */
     --brand-mid: #3f5470; /* eyebrow / label */
     --brand-accent: #2563eb; /* accent — darker than the dark theme's, for AA on white */
+    /* Text drawn ON a solid accent fill. Flips per theme because the accent does:
+     * it is dark enough here to need white, and light enough in dark to need ink. */
+    --brand-on-accent: #ffffff;
     --brand-coral: #e8654a; /* warnings */
     --brand-bg: #eef1f5; /* input / subtle inner surface */
     --brand-surface: #f7f8fa; /* page base */
@@ -56,6 +60,7 @@
     --brand-dark: #0a0b0d; /* deep ink — tooltips, button label */
     --brand-mid: #b4bcc7; /* eyebrow / label (lifted for legibility) */
     --brand-accent: #6ea8fe;
+    --brand-on-accent: #0a0b0d;
     --brand-coral: #ff8f70;
     --brand-bg: #191c21;
     --brand-surface: #0f1114;

@@ -91,7 +91,7 @@ export function LayoutControls({
                                 onClick={() => onChange({ ...value, ...p.values })}
                                 className={`rounded-md px-4 py-1 text-xs font-semibold transition ${
                                     isSelected
-                                        ? "bg-brand-accent text-brand-dark shadow-sm"
+                                        ? "bg-brand-accent text-brand-on-accent shadow-sm"
                                         : "text-brand-text-soft hover:bg-brand-card"
                                 } ${disabled ? "cursor-not-allowed opacity-40 hover:bg-transparent" : ""}`}
                             >

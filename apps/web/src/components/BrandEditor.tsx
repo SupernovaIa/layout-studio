@@ -106,7 +106,7 @@ export function BrandEditor({ colors, custom, onChange, onReset, bare = false }:
                     <button
                         type="button"
                         onClick={generate}
-                        className="shrink-0 rounded-md bg-brand-accent px-3 py-1.5 text-xs font-semibold text-brand-dark transition hover:brightness-110"
+                        className="shrink-0 rounded-md bg-brand-accent px-3 py-1.5 text-xs font-semibold text-brand-on-accent transition hover:brightness-110"
                     >
                         Generar
                     </button>
