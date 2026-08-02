@@ -20,3 +20,12 @@ The renderer wheel is already committed, so you don't need Python to work on the
 - [docs/brands.md](docs/brands.md) — adding a new brand.
 - [docs/features.md](docs/features.md) — index of supported markdown (headings, lists, tables, images, code, callouts, quizzes, formulas, Mermaid diagrams…).
 - [docs/formula-syntax.md](docs/formula-syntax.md) — detailed LaTeX formula guide.
+
+## License
+
+[MIT](LICENSE), except the bundled fonts: Poppins and JetBrains Mono ship under
+the SIL Open Font License, whose text travels with them in
+[`packages/renderer/layout_studio_renderer/assets/fonts/`](packages/renderer/layout_studio_renderer/assets/fonts/).
+The `fonts/` of every brand under `apps/web/public/brands/` are copies of that
+same Poppins. If you add a brand with a commercial typeface, check that its
+license allows redistribution before committing the TTFs.

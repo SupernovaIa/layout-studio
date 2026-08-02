@@ -2,6 +2,7 @@
   "name": "layout-studio",
   "version": "0.2.0",
   "private": true,
+  "license": "MIT",
   "description": "Brand-aware document layout studio (Markdown → PDF, more formats planned).",
   "scripts": {
     "dev": "pnpm --filter @layout-studio/web dev",
