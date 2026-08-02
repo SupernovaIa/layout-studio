@@ -4,9 +4,9 @@
     "name": "Personalizada",
     "palettes_source": "catalog",
     "colors": {
-        "primary_dark": "#1C3C42",
-        "primary_light": "#82C4AF",
-        "primary_mid": "#3A6870"
+        "primary_dark": "#303740",
+        "primary_light": "#D5D8DC",
+        "primary_mid": "#4F5D6E"
     },
     "font_family": "Poppins",
     "font_files": {
