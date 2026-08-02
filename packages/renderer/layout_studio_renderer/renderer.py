@@ -1,9 +1,9 @@
 """PDF rendering engine.
 
-Mirrors the original `sanipro-pdf/build_caso.py` rendering logic but reads
+Mirrors the rendering logic of the original single-script prototype but reads
 all palette/font/layout values from `BrandConfig` and `LayoutOptions` instead
-of module-level constants. The visual output for the Sanipro preset should be
-identical to the original script.
+of module-level constants. The visual output for `reference_brand()` should be
+identical to that script.
 """
 
 from __future__ import annotations

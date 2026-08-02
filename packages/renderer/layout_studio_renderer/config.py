@@ -83,7 +83,7 @@ class BrandConfig:
 
 @dataclass(frozen=True)
 class LayoutOptions:
-    """Per-render layout choices. Defaults match the original Sanipro look."""
+    """Per-render layout choices. Defaults match `reference_brand()`'s look."""
 
     page_size: Tuple[float, float] = A4
     margin_left: float = 43

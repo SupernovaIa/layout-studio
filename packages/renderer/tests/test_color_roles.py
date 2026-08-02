@@ -18,7 +18,7 @@ from layout_studio_renderer import LayoutOptions, render_markdown_to_pdf, refere
 from layout_studio_renderer.fonts import register_brand_fonts, register_mono_fonts
 from layout_studio_renderer.renderer import Renderer
 
-# Distinct from every color in the sanipro palette, so "appears in output" is
+# Distinct from every color in the reference palette, so "appears in output" is
 # unambiguous evidence the override (not a default) was used.
 OVERRIDES = {
     "table_header_bg": "#336699",

@@ -1,8 +1,8 @@
 """Markdown parser used by the renderer.
 
-Lifted verbatim from the original sanipro-pdf `build_caso.py` (the working
-`parse_md` function, not the abandoned earlier attempt). Produces a list of
-typed blocks plus the YAML frontmatter dict.
+Lifted verbatim from the original single-script prototype this package grew out
+of (its working `parse_md`, not the abandoned earlier attempt). Produces a list
+of typed blocks plus the YAML frontmatter dict.
 
 Output schema (block types):
     {"type": "h1_doc", "text": str}      # `#` — document title
