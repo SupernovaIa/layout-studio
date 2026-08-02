@@ -3,11 +3,11 @@
     "slug": "mimarca",
     "name": "Mi Marca",
     "colors": {
-        "primary_dark": "#1B2A4A",
-        "primary_light": "#A9C4F5",
-        "primary_mid": "#3A5CA8",
-        "bg_soft": "#F1F5FC",
-        "quote_bg": "#F1F5FC"
+        "primary_dark": "#26292E",
+        "primary_light": "#D8DBDF",
+        "primary_mid": "#4E545C",
+        "bg_soft": "#F4F5F6",
+        "quote_bg": "#F4F5F6"
     },
     "font_family": "Poppins",
     "font_files": {
@@ -17,6 +17,6 @@
         "light": "fonts/light.ttf",
         "italic": "fonts/italic.ttf"
     },
-    "logo_fallback_text": "Mi Marca",
+    "logo_fallback_text": "",
     "document_author": "Mi Marca"
 }
