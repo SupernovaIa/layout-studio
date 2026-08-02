@@ -30,9 +30,9 @@ def reference_brand() -> BrandConfig:
     return BrandConfig(
         name="Reference",
         colors=BrandColors(
-            primary_dark="#1B2A4A",
-            primary_light="#A9C4F5",
-            primary_mid="#3A5CA8",
+            primary_dark="#26292E",
+            primary_light="#D8DBDF",
+            primary_mid="#4E545C",
         ),
         fonts=BrandFonts(
             family="Poppins",
@@ -43,7 +43,7 @@ def reference_brand() -> BrandConfig:
             italic=fonts_dir / "Poppins-Italic.ttf",
         ),
         logo_path=None,
-        logo_fallback_text="Mi Marca",
+        logo_fallback_text="",
         document_author="Mi Marca",
     )
 
