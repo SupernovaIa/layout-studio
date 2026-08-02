@@ -607,6 +607,7 @@ export async function renderPdf({ markdown, brand, layout, paletteColors, custom
     pyodide.globals.set("formulas_json", JSON.stringify(formulas));
 
     const result = await pyodide.runPythonAsync(`
+import dataclasses
 import json
 from pathlib import Path
 from layout_studio_renderer import (
@@ -617,6 +618,13 @@ from layout_studio_renderer import (
 brand = json.loads(brand_json)
 layout_dict = json.loads(layout_json)
 formulas = json.loads(formulas_json)
+
+# An autosaved session can predate a LayoutOptions field being dropped, so keep
+# only what the engine still accepts instead of raising TypeError on the splat.
+layout_dict = {
+    k: v for k, v in layout_dict.items()
+    if k in {f.name for f in dataclasses.fields(LayoutOptions)}
+}
 fs = brand["_fs"]
 
 cfg = BrandConfig(
@@ -671,6 +679,7 @@ export async function renderDocx({ markdown, brand, layout, paletteColors, custo
     pyodide.globals.set("base_path", basePath ?? null);
 
     const result = await pyodide.runPythonAsync(`
+import dataclasses
 import json
 from pathlib import Path
 from layout_studio_renderer import (
@@ -681,6 +690,12 @@ from layout_studio_renderer import (
 brand = json.loads(brand_json)
 layout_dict = json.loads(layout_json)
 fs = brand["_fs"]
+
+# See the PDF path: tolerate autosaved sessions that predate a dropped field.
+layout_dict = {
+    k: v for k, v in layout_dict.items()
+    if k in {f.name for f in dataclasses.fields(LayoutOptions)}
+}
 
 cfg = BrandConfig(
     name=brand["name"],
