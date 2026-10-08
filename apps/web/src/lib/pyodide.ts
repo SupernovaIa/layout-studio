@@ -6,8 +6,9 @@
  * layout-studio-renderer wheel served from /wheels/. Returns a Promise that
  * resolves to the live Pyodide instance.
  *
- * The Pyodide runtime itself is loaded from jsDelivr via a <script> tag in
- * index.html. `window.loadPyodide` is exposed globally by that script.
+ * The Pyodide runtime itself is loaded from jsDelivr by injecting a <script>
+ * tag on first use (see `loadPyodideScript`), so it never blocks the first
+ * paint. `window.loadPyodide` is exposed globally by that script.
  */
 
 declare global {
@@ -19,8 +20,29 @@ declare global {
     }
 }
 
-const PYODIDE_INDEX_URL = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";
+const PYODIDE_VERSION = "0.26.4";
+const PYODIDE_INDEX_URL = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
 const WHEELS_BASE = "/wheels";
+
+// PyPI packages installed at runtime (Pyodide doesn't ship them). Pinned to the
+// versions in packages/renderer/uv.lock so what the tests cover is what ships.
+const REPORTLAB_VERSION = "4.5.1";
+const PYTHON_DOCX_VERSION = "1.2.0";
+
+function loadPyodideScript(): Promise<void> {
+    if ("loadPyodide" in window) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = `${PYODIDE_INDEX_URL}pyodide.js`;
+        script.onload = () => resolve();
+        script.onerror = () => {
+            // Remove the failed tag so a retry injects a fresh one.
+            script.remove();
+            reject(new Error("No se pudo descargar el motor (pyodide.js). Revisa tu conexión."));
+        };
+        document.head.appendChild(script);
+    });
+}
 
 async function resolveRendererWheelUrl(): Promise<string> {
     // The build script writes manifest.json alongside the wheel so the JS loader
@@ -68,12 +90,8 @@ export function getPyodide(): Promise<any> {
 
     pyodidePromise = (async () => {
         try {
-            if (!window.loadPyodide) {
-                throw new Error(
-                    "Pyodide loader no disponible. ¿Carga el script de jsdelivr en index.html?",
-                );
-            }
             setStatus({ state: "loading", progress: 0 });
+            await loadPyodideScript();
             const pyodide = await window.loadPyodide({
                 indexURL: PYODIDE_INDEX_URL,
             });
@@ -83,7 +101,7 @@ export function getPyodide(): Promise<any> {
 
             setStatus({ state: "loading", progress: 2 / LOAD_STEPS });
             const micropip = pyodide.pyimport("micropip");
-            await micropip.install("reportlab");
+            await micropip.install(`reportlab==${REPORTLAB_VERSION}`);
 
             setStatus({ state: "loading", progress: 3 / LOAD_STEPS });
             const wheelUrl = await resolveRendererWheelUrl();
@@ -117,7 +135,7 @@ export async function ensurePythonDocx(): Promise<void> {
     docxInstallPromise = (async () => {
         const pyodide = await getPyodide();
         const micropip = pyodide.pyimport("micropip");
-        await micropip.install("python-docx");
+        await micropip.install(`python-docx==${PYTHON_DOCX_VERSION}`);
     })();
     try {
         await docxInstallPromise;

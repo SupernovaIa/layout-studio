@@ -97,6 +97,8 @@ export default function App() {
 
     // Load palettes + layout defaults whenever the selected brand changes.
     useEffect(() => {
+        // A quick brand switch must not let the earlier brand's requests land last.
+        let cancelled = false;
         if (!selectedBrand) {
             setBrandPalettes([]);
             setSelectedPaletteId(null);
@@ -106,6 +108,7 @@ export default function App() {
         }
         void loadBrandManifest(selectedBrand)
             .then(async (manifest) => {
+                if (cancelled) return;
                 setBrandColors(manifest.colors);
                 // When this brand comes from a restored draft, its saved layout and
                 // palette win over the brand's defaults (consumed once). Otherwise
@@ -113,7 +116,9 @@ export default function App() {
                 const pending =
                     restoredRef.current?.selectedBrand === selectedBrand ? restoredRef.current : null;
 
-                setLayout(pending?.layout ?? { ...DEFAULT_LAYOUT, ...(manifest.layout_defaults ?? {}) });
+                // Restored values are laid over the defaults so options added since
+                // the draft was saved still get their default.
+                setLayout({ ...DEFAULT_LAYOUT, ...(manifest.layout_defaults ?? {}), ...(pending?.layout ?? {}) });
                 // Restore a custom color override for this brand, else clear it
                 // (switching brand drops any override from the previous one).
                 setCustomColors(pending?.customColors ?? null);
@@ -124,6 +129,7 @@ export default function App() {
                 } else if (manifest.has_palettes) {
                     palettes = await loadBrandPalettes(selectedBrand);
                 }
+                if (cancelled) return;
                 setBrandPalettes(palettes);
 
                 const defaultPaletteId = palettes.length > 0 ? palettes[0].id : null;
@@ -137,10 +143,14 @@ export default function App() {
                 setHydrated(true);
             })
             .catch((err: Error) => {
+                if (cancelled) return;
                 setCatalogError(err.message);
                 restoredRef.current = null;
                 setHydrated(true);
             });
+        return () => {
+            cancelled = true;
+        };
     }, [selectedBrand]);
 
     // Autosave the editing session (Markdown + brand/palette/format/layout).

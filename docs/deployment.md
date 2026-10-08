@@ -25,3 +25,5 @@ locally and commit the new `.whl` + `manifest.json` before pushing.
   `tsc --noEmit`).
 - **renderer**: `pytest` over `packages/renderer`, plus a check that the committed
   wheel matches the Python source.
+- **pyodide**: `scripts/pyodide-smoke.mjs` boots Pyodide in Node with the same pinned
+  dependencies and committed wheel as the web, then renders a PDF and a DOCX.

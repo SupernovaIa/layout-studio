@@ -206,8 +206,25 @@ function Block({ block, formulaUrls }: { block: ReadingBlock; formulaUrls: Recor
         );
     }
     if (t === "ol") {
-        const items = (block.items ?? []) as string[];
-        return <ol className="rv-ol">{items.map((it, k) => <li key={k}>{renderInline(it, formulaUrls)}</li>)}</ol>;
+        const items = (block.items ?? []) as Array<{ text: string; children?: string[] } | string>;
+        return (
+            <ol className="rv-ol" start={block.start ?? 1}>
+                {items.map((it, k) => {
+                    const text = typeof it === "string" ? it : it.text;
+                    const children = typeof it === "string" ? [] : it.children ?? [];
+                    return (
+                        <li key={k}>
+                            <span>{renderInline(text, formulaUrls)}</span>
+                            {children.length > 0 && (
+                                <ul className="rv-ul rv-ul-sub">
+                                    {children.map((c, j) => <li key={j}>{renderInline(c, formulaUrls)}</li>)}
+                                </ul>
+                            )}
+                        </li>
+                    );
+                })}
+            </ol>
+        );
     }
     if (t === "blockquote") {
         const lines = (block.lines ?? []) as string[];

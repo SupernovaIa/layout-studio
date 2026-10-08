@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { type PyodideStatus, subscribePyodideStatus } from "../lib/pyodide";
+import { getPyodide, type PyodideStatus, subscribePyodideStatus } from "../lib/pyodide";
 
 /**
  * Engine-load status as a floating toast. Positioned `fixed` (out of document
@@ -16,8 +16,15 @@ export function PyodideStatusBar() {
 
     if (status.state === "error") {
         return (
-            <div role="status" className={`${base} border-brand-coral/40 text-brand-coral`}>
-                Error: {status.message}
+            <div role="alert" className={`${base} border-brand-coral/40 text-brand-coral`}>
+                <p>Error: {status.message}</p>
+                <button
+                    type="button"
+                    onClick={() => void getPyodide().catch(() => {})}
+                    className="mt-2 rounded-lg border border-brand-coral/40 px-3 py-1 text-xs font-medium hover:bg-brand-coral/10"
+                >
+                    Reintentar
+                </button>
             </div>
         );
     }
