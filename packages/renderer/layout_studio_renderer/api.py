@@ -15,10 +15,8 @@ from pathlib import Path
 from reportlab.pdfgen import canvas
 
 from .config import BrandColors, BrandConfig, BrandFonts, LayoutOptions
-from .docx_renderer import render_markdown_to_docx as _render_docx
 from .parser import parse_markdown
 from .renderer import render_blocks_to_canvas
-from .docx_renderer import render_markdown_to_docx as _render_docx
 
 
 _PACKAGE_ASSETS = Path(__file__).resolve().parent / "assets"
@@ -86,5 +84,11 @@ def render_markdown_to_docx(
     layout: LayoutOptions | None = None,
     base_path: str | Path | None = None,
 ) -> bytes:
-    """Render a Markdown document (with optional YAML frontmatter) to DOCX bytes."""
+    """Render a Markdown document (with optional YAML frontmatter) to DOCX bytes.
+
+    Needs the optional ``docx`` extra (python-docx); imported here so PDF-only
+    sessions never load it.
+    """
+    from .docx_renderer import render_markdown_to_docx as _render_docx
+
     return _render_docx(md_text, brand, layout, base_path)

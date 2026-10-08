@@ -5,6 +5,7 @@ from pathlib import Path
 
 from layout_studio_renderer import (
     LayoutOptions,
+    render_markdown_to_docx,
     render_markdown_to_pdf,
     reference_brand,
 )
@@ -45,3 +46,18 @@ def test_non_string_frontmatter_title_renders():
         md = f"---\ntitulo: {value}\n---\n\n# Heading\n\nBody text.\n"
         pdf = render_markdown_to_pdf(md, reference_brand())
         assert pdf.startswith(b"%PDF-")
+
+
+def test_importing_package_does_not_load_python_docx():
+    # PDF-only sessions (the web cold start) must not need python-docx/lxml.
+    import subprocess
+    import sys
+
+    code = "import layout_studio_renderer, sys; sys.exit('docx' in sys.modules)"
+    assert subprocess.run([sys.executable, "-c", code]).returncode == 0
+
+
+def test_docx_export_still_works():
+    md = EXAMPLE.read_text(encoding="utf-8")
+    docx = render_markdown_to_docx(md, reference_brand())
+    assert docx.startswith(b"PK"), "DOCX is a zip container"

@@ -143,7 +143,6 @@ version = "0.9.0"
 source = { editable = "." }
 dependencies = [
     { name = "pygments" },
-    { name = "python-docx" },
     { name = "pyyaml" },
     { name = "reportlab" },
 ]
@@ -152,6 +151,10 @@ dependencies = [
 dev = [
     { name = "pyphen" },
     { name = "pytest" },
+    { name = "python-docx" },
+]
+docx = [
+    { name = "python-docx" },
 ]
 hyphenation = [
     { name = "pyphen" },
@@ -163,11 +166,12 @@ requires-dist = [
     { name = "pyphen", marker = "extra == 'dev'", specifier = ">=0.14" },
     { name = "pyphen", marker = "extra == 'hyphenation'", specifier = ">=0.14" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
-    { name = "python-docx", specifier = ">=1.0" },
+    { name = "python-docx", marker = "extra == 'dev'", specifier = ">=1.0" },
+    { name = "python-docx", marker = "extra == 'docx'", specifier = ">=1.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "reportlab", specifier = ">=4.0" },
 ]
-provides-extras = ["hyphenation", "dev"]
+provides-extras = ["docx", "hyphenation", "dev"]
 
 [[package]]
 name = "lxml"
