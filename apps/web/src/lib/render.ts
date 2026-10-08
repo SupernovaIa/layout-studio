@@ -8,6 +8,7 @@ import JSZip from "jszip";
 
 import { brandAssetUrl, loadBrandManifest } from "./brands";
 import { ensurePythonDocx, getPyodide } from "./pyodide";
+import { pinSvgSize, svgSize, svgToPng } from "./svg-raster";
 import type { MermaidTheme } from "./mermaid";
 import type { BrandColors, BrandManifest, LayoutOptions } from "./types";
 
@@ -110,6 +111,26 @@ function cleanDocAssets(pyodide: any): void {
  */
 const stagedBrands = new Set<string>();
 
+/** Width (px) SVG logos are rasterized to; plenty for a header logo at print size. */
+const LOGO_RASTER_WIDTH = 800;
+
+/**
+ * The Python renderer only draws raster images, so an SVG logo is rasterized to
+ * PNG (transparent background) before staging. Other formats pass through.
+ */
+async function rasterizeLogoIfSvg(
+    bytes: Uint8Array,
+    ext: string,
+): Promise<{ bytes: Uint8Array; ext: string }> {
+    if (ext.toLowerCase() !== "svg") return { bytes, ext };
+    const svg = new TextDecoder().decode(bytes);
+    const { w, h } = svgSize(svg);
+    const pxW = LOGO_RASTER_WIDTH;
+    const pxH = Math.max(1, Math.round((h / w) * pxW));
+    const png = await svgToPng(pinSvgSize(svg, pxW, pxH), pxW, pxH, { errorLabel: "el logo SVG" });
+    return { bytes: png, ext: "png" };
+}
+
 async function stageBrandAssets(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     pyodide: any,
@@ -117,7 +138,8 @@ async function stageBrandAssets(
 ): Promise<{ fontsDir: string; logoPath: string | null; hasMono: boolean }> {
     const brandDir = `${BRAND_FS_ROOT}/${brand.slug}`;
     const fontsDir = `${brandDir}/fonts`;
-    const logoExt = brand.logo_file?.split(".").pop() ?? "png";
+    const sourceLogoExt = brand.logo_file?.split(".").pop() ?? "png";
+    const logoExt = sourceLogoExt.toLowerCase() === "svg" ? "png" : sourceLogoExt;
     const logoPath = brand.logo_file ? `${brandDir}/logo.${logoExt}` : null;
     const hasMono = Boolean(brand.font_files.mono);
 
@@ -134,7 +156,8 @@ async function stageBrandAssets(
     }
 
     if (brand.logo_file && logoPath) {
-        const bytes = await fetchBytes(brandAssetUrl(brand.slug, brand.logo_file));
+        const raw = await fetchBytes(brandAssetUrl(brand.slug, brand.logo_file));
+        const { bytes } = await rasterizeLogoIfSvg(raw, sourceLogoExt);
         pyodide.FS.writeFile(logoPath, bytes);
     }
 
@@ -147,10 +170,13 @@ async function stageCustomLogo(
     pyodide: any,
     file: File,
 ): Promise<string> {
-    const ext = file.name.split(".").pop() ?? "png";
+    const { bytes, ext } = await rasterizeLogoIfSvg(
+        new Uint8Array(await file.arrayBuffer()),
+        file.name.split(".").pop() ?? "png",
+    );
     const path = `/custom/logo.${ext}`;
     pyodide.FS.mkdirTree("/custom");
-    pyodide.FS.writeFile(path, new Uint8Array(await file.arrayBuffer()));
+    pyodide.FS.writeFile(path, bytes);
     return path;
 }
 
@@ -180,9 +206,10 @@ async function stageClientLogo(
         bytes = new Uint8Array(await logo.file.arrayBuffer());
         ext = logo.file.name.split(".").pop() ?? "png";
     }
-    const path = `/custom/client-logo.${ext}`;
+    const staged = await rasterizeLogoIfSvg(bytes, ext);
+    const path = `/custom/client-logo.${staged.ext}`;
     pyodide.FS.mkdirTree("/custom");
-    pyodide.FS.writeFile(path, bytes);
+    pyodide.FS.writeFile(path, staged.bytes);
     return path;
 }
 
@@ -577,7 +604,7 @@ async function ensurePyphen(pyodide: any): Promise<void> {
     }
 }
 
-export async function renderPdf({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning }: RenderArgs): Promise<Uint8Array> {
+async function renderPdfImpl({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning }: RenderArgs): Promise<Uint8Array> {
     const pyodide = await getPyodide();
     if (layout.hyphenate) await ensurePyphen(pyodide);
     const fs = await stageBrandAssets(pyodide, brand);
@@ -629,7 +656,10 @@ fs = brand["_fs"]
 
 cfg = BrandConfig(
     name=brand["name"],
-    colors=BrandColors(**brand["colors"]),
+    colors=BrandColors(**{
+        k: v for k, v in brand["colors"].items()
+        if k in {f.name for f in dataclasses.fields(BrandColors)}
+    }),
     fonts=BrandFonts(
         family=brand["font_family"],
         regular=Path(fs["fonts_dir"]) / "regular.ttf",
@@ -653,7 +683,7 @@ render_markdown_to_pdf(md_text, cfg, opts, Path(base_path) if base_path else Non
     return bytes;
 }
 
-export async function renderDocx({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning }: RenderArgs): Promise<Uint8Array> {
+async function renderDocxImpl({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning }: RenderArgs): Promise<Uint8Array> {
     const pyodide = await getPyodide();
     await ensurePythonDocx();
     const fs = await stageBrandAssets(pyodide, brand);
@@ -699,7 +729,10 @@ layout_dict = {
 
 cfg = BrandConfig(
     name=brand["name"],
-    colors=BrandColors(**brand["colors"]),
+    colors=BrandColors(**{
+        k: v for k, v in brand["colors"].items()
+        if k in {f.name for f in dataclasses.fields(BrandColors)}
+    }),
     fonts=BrandFonts(
         family=brand["font_family"],
         regular=Path(fs["fonts_dir"]) / "regular.ttf",
@@ -768,7 +801,7 @@ function fsPngToBlobUrl(pyodide: any, path: string): string | null {
  * (reusing the PDF pipeline) and exposed as blob URLs; FS-staged image sources
  * are rewritten to blob URLs in place.
  */
-export async function parseReadingDoc({ markdown, brand, paletteColors }: ParseArgs): Promise<ReadingDoc> {
+async function parseReadingDocImpl({ markdown, brand, paletteColors }: ParseArgs): Promise<ReadingDoc> {
     const pyodide = await getPyodide();
     const effectiveColors = paletteColors ? { ...brand.colors, ...paletteColors } : brand.colors;
 
@@ -875,7 +908,7 @@ interface BatchArgs {
     onProgress?: (p: BatchProgress) => void;
 }
 
-export async function renderBatchZip({
+async function renderBatchZipImpl({
     files,
     brand,
     layout,
@@ -926,8 +959,8 @@ export async function renderBatchZip({
         const basePath = mdDir ? `${DOC_FS_ROOT}/${mdDir}` : DOC_FS_ROOT;
 
         const rendered = format === "docx"
-            ? await renderDocx({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning })
-            : await renderPdf({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning });
+            ? await renderDocxImpl({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning })
+            : await renderPdfImpl({ markdown, brand, layout, paletteColors, customLogo, clientLogo, basePath, onAssetWarning });
         const outPath = entry.relativePath.replace(/\.md$/i, format === "docx" ? ".docx" : ".pdf");
         zip.file(outPath, rendered);
         done += 1;
@@ -940,4 +973,37 @@ export async function renderBatchZip({
 
     const bytes = await zip.generateAsync({ type: "uint8array" });
     return { zip: bytes, warnings };
+}
+
+// ---------------------------------------------------------------------------
+// Serialized public entry points
+// ---------------------------------------------------------------------------
+
+// Pyodide is a single runtime with one shared virtual FS (staged fonts/images
+// live at fixed paths and every render cleans them up), so two renders that
+// overlap would trample each other's files. Every public entry point runs
+// through this queue; internal callers use the `*Impl` functions directly so a
+// batch run never waits on itself.
+let pyodideQueue: Promise<unknown> = Promise.resolve();
+
+function withPyodideLock<T>(task: () => Promise<T>): Promise<T> {
+    const run = pyodideQueue.then(task, task);
+    pyodideQueue = run.catch(() => {});
+    return run;
+}
+
+export function renderPdf(args: RenderArgs): Promise<Uint8Array> {
+    return withPyodideLock(() => renderPdfImpl(args));
+}
+
+export function renderDocx(args: RenderArgs): Promise<Uint8Array> {
+    return withPyodideLock(() => renderDocxImpl(args));
+}
+
+export function parseReadingDoc(args: ParseArgs): Promise<ReadingDoc> {
+    return withPyodideLock(() => parseReadingDocImpl(args));
+}
+
+export function renderBatchZip(args: BatchArgs): Promise<BatchResult> {
+    return withPyodideLock(() => renderBatchZipImpl(args));
 }
