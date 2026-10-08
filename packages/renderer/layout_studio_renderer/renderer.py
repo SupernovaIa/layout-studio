@@ -432,7 +432,7 @@ class Renderer:
 
         # Running header: document title (soft grey, mixed case) on the left,
         # page number (brand accent) on the right, thin accent rule below.
-        title = (self.meta.get("titulo") or self.meta.get("curso_nombre") or "").strip()
+        title = str(self.meta.get("titulo") or self.meta.get("curso_nombre") or "").strip()
         if len(title) > 70:
             title = title[:69].rstrip() + "…"
 

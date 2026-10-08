@@ -37,3 +37,11 @@ def test_client_logo_renders():
     assert pdf.startswith(b"%PDF-")
     # The client logo adds image content on every page → strictly bigger output.
     assert len(pdf) > len(render_markdown_to_pdf(md, brand))
+
+
+def test_non_string_frontmatter_title_renders():
+    # YAML parses `titulo: 2024` as an int and a list as a list; neither may crash.
+    for value in ("2024", "[a, b]"):
+        md = f"---\ntitulo: {value}\n---\n\n# Heading\n\nBody text.\n"
+        pdf = render_markdown_to_pdf(md, reference_brand())
+        assert pdf.startswith(b"%PDF-")

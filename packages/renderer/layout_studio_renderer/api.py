@@ -70,7 +70,7 @@ def render_markdown_to_pdf(
 
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=layout.page_size)
-    c.setTitle(meta.get("titulo", "Documento"))
+    c.setTitle(str(meta.get("titulo") or "Documento"))
     if brand.document_author:
         c.setAuthor(brand.document_author)
 
