@@ -24,6 +24,11 @@ const PYODIDE_VERSION = "0.26.4";
 const PYODIDE_INDEX_URL = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
 const WHEELS_BASE = "/wheels";
 
+// PyPI packages installed at runtime (Pyodide doesn't ship them). Pinned to the
+// versions in packages/renderer/uv.lock so what the tests cover is what ships.
+const REPORTLAB_VERSION = "4.5.1";
+const PYTHON_DOCX_VERSION = "1.2.0";
+
 function loadPyodideScript(): Promise<void> {
     if ("loadPyodide" in window) return Promise.resolve();
     return new Promise((resolve, reject) => {
@@ -96,7 +101,7 @@ export function getPyodide(): Promise<any> {
 
             setStatus({ state: "loading", progress: 2 / LOAD_STEPS });
             const micropip = pyodide.pyimport("micropip");
-            await micropip.install("reportlab");
+            await micropip.install(`reportlab==${REPORTLAB_VERSION}`);
 
             setStatus({ state: "loading", progress: 3 / LOAD_STEPS });
             const wheelUrl = await resolveRendererWheelUrl();
@@ -130,7 +135,7 @@ export async function ensurePythonDocx(): Promise<void> {
     docxInstallPromise = (async () => {
         const pyodide = await getPyodide();
         const micropip = pyodide.pyimport("micropip");
-        await micropip.install("python-docx");
+        await micropip.install(`python-docx==${PYTHON_DOCX_VERSION}`);
     })();
     try {
         await docxInstallPromise;
