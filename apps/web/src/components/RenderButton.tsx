@@ -11,7 +11,6 @@ import {
     renderDocx,
     renderPdf,
 } from "../lib/render";
-import { renderReadingHtml } from "../lib/htmlExport";
 import type { BrandColors, LayoutOptions } from "../lib/types";
 
 type PaletteColors = Partial<BrandColors>;
@@ -103,6 +102,7 @@ export function RenderButton({
             const manifest = await loadBrandManifest(brand);
             if (mode === "single") {
                 if (format === "html") {
+                    const { renderReadingHtml } = await import("../lib/htmlExport");
                     const html = await renderReadingHtml({ markdown, brand: manifest, paletteColors });
                     downloadBlob(html, `${brand}-document.html`, "text/html;charset=utf-8");
                 } else if (format === "docx") {
