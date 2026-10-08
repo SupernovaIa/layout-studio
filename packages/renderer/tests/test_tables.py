@@ -33,3 +33,12 @@ def test_long_table_overflows_without_crashing():
     long_pdf = render_markdown_to_pdf(long_md, brand)
     assert long_pdf.startswith(b"%PDF-")
     assert len(long_pdf) > len(render_markdown_to_pdf(short_md, brand))
+
+
+def test_numeric_header_detection_uses_whole_words():
+    from layout_studio_renderer.renderer import _is_numeric_header
+
+    for text in ("Horas", "Tiempo (h)", "% avance", "Peso", "h", "Tiempo estimado"):
+        assert _is_numeric_header(text), text
+    for text in ("Fecha", "Hecho", "Horario", "Archivo", "Descripción"):
+        assert not _is_numeric_header(text), text

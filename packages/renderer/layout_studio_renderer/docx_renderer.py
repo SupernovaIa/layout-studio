@@ -287,8 +287,13 @@ def render_markdown_to_docx(
 
         elif btype == "ol":
             for item in block["items"]:
+                if isinstance(item, str):
+                    item = {"text": item, "children": []}
                 para = doc.add_paragraph(style="List Number")
-                _apply_inline(para, item)
+                _apply_inline(para, item["text"])
+                for child in item.get("children", []):
+                    cpara = doc.add_paragraph(style="List Bullet 2")
+                    _apply_inline(cpara, child)
 
         elif btype == "table":
             header = block["header"]

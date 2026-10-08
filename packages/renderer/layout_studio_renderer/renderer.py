@@ -70,6 +70,16 @@ _LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
 _IMG = "\x00img"
 
 
+# A header that marks a narrow, right-aligned numeric column ("Horas", "Peso",
+# "Tiempo (h)", "% avance"). Whole words only, so "Fecha", "Hecho" or "Horario"
+# don't match just because they contain an "h".
+_NUMERIC_HEADER_RE = re.compile(r"%|(?<!\w)(?:h|hs|horas?|peso|tiempo)(?!\w)", re.IGNORECASE)
+
+
+def _is_numeric_header(text: str) -> bool:
+    return _NUMERIC_HEADER_RE.search(text) is not None
+
+
 def _hex_no_hash(h: str) -> str:
     return h.lstrip("#").upper()
 
@@ -764,25 +774,33 @@ class Renderer:
                     idx == len(lines) - 1,
                 )
                 self.y -= self.opts.body_lead
-            for child in children:
-                clines = self._wrap(self._tokens(child), self.opts.body_size, self.CW - 44)
-                self.need_space(self.opts.body_lead + 2)
-                c.setFillColor(self.col_mid)
-                c.circle(self.ML + 24, self.y + 4, 1.6, fill=1, stroke=0)
-                for cidx, cln in enumerate(clines):
-                    if cidx > 0:
-                        self.need_space(self.opts.body_lead + 2)
-                    self._draw_just(
-                        self.ML + 34, self.y, cln, self.opts.body_size, self.CW - 44,
-                        cidx == len(clines) - 1,
-                    )
-                    self.y -= self.opts.body_lead
+            self._draw_sub_bullets(children)
             self.y -= 4
         self.y -= 8
 
-    def render_ol(self, items: list[str]) -> None:
+    def _draw_sub_bullets(self, children: list[str]) -> None:
         c = self.c
-        for idx, item in enumerate(items, 1):
+        for child in children:
+            clines = self._wrap(self._tokens(child), self.opts.body_size, self.CW - 44)
+            self.need_space(self.opts.body_lead + 2)
+            c.setFillColor(self.col_mid)
+            c.circle(self.ML + 24, self.y + 4, 1.6, fill=1, stroke=0)
+            for cidx, cln in enumerate(clines):
+                if cidx > 0:
+                    self.need_space(self.opts.body_lead + 2)
+                self._draw_just(
+                    self.ML + 34, self.y, cln, self.opts.body_size, self.CW - 44,
+                    cidx == len(clines) - 1,
+                )
+                self.y -= self.opts.body_lead
+
+    def render_ol(self, items: list, start: int = 1) -> None:
+        c = self.c
+        for idx, item in enumerate(items, start):
+            if isinstance(item, str):
+                item, children = item, []
+            else:
+                item, children = item["text"], item.get("children", [])
             lines = self._wrap(self._tokens(item), self.opts.body_size, self.CW - 26)
             self.need_space(self.opts.body_lead + 4)
             c.setFont(self.style.f_bold, self.opts.body_size)
@@ -796,6 +814,7 @@ class Renderer:
                     li == len(lines) - 1,
                 )
                 self.y -= self.opts.body_lead
+            self._draw_sub_bullets(children)
             self.y -= 4
         self.y -= 8
 
@@ -804,7 +823,7 @@ class Renderer:
         n_cols = len(header)
         col_w = self.CW / n_cols
         col_widths = [col_w] * n_cols
-        last_is_num = re.search(r"(h|%|hora|peso|tiempo)", header[-1].lower()) is not None
+        last_is_num = _is_numeric_header(header[-1])
         if last_is_num and n_cols >= 2:
             col_widths[-1] = self.CW * 0.18
             remaining = self.CW - col_widths[-1]
@@ -1227,7 +1246,7 @@ class Renderer:
             elif t == "ul":
                 self.render_ul(blk["items"])
             elif t == "ol":
-                self.render_ol(blk["items"])
+                self.render_ol(blk["items"], blk.get("start", 1))
             elif t == "table":
                 self.render_table(blk["header"], blk["rows"])
             elif t == "quiz":

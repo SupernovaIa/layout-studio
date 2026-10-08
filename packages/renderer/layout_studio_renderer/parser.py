@@ -12,7 +12,7 @@ Output schema (block types):
     {"type": "p", "text": str}           # paragraph (text may include inline md)
     {"type": "blockquote", "lines": [str, ...]}
     {"type": "ul", "items": [{"text": str, "children": [str, ...]}, ...]}
-    {"type": "ol", "items": [str, ...]}
+    {"type": "ol", "start": int, "items": [{"text": str, "children": [str, ...]}, ...]}
     {"type": "table", "header": [str, ...], "rows": [[str, ...], ...]}
     {"type": "hr"}
     {"type": "image", "alt": str, "src": str}     # standalone ![alt](src)
@@ -28,6 +28,40 @@ from __future__ import annotations
 import re
 
 import yaml
+
+# Table delimiter row: `|---|---|`, `:--|--:`, ... It must contain a pipe so a
+# bare `---` (horizontal rule) or `- item` under a line with a `|` is not read
+# as the header separator of a one-column table.
+_TABLE_DELIM_RE = re.compile(r"^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$")
+
+
+def _split_table_row(line: str) -> list[str]:
+    """Split a table row on unescaped pipes outside inline-code spans."""
+    cells: list[str] = []
+    buf: list[str] = []
+    in_code = False
+    text = line.strip()
+    if text.startswith("|"):
+        text = text[1:]
+    if text.endswith("|") and not text.endswith("\\|"):
+        text = text[:-1]
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch == "\\" and i + 1 < len(text) and text[i + 1] == "|":
+            buf.append("|")
+            i += 2
+            continue
+        if ch == "`":
+            in_code = not in_code
+        if ch == "|" and not in_code:
+            cells.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+        i += 1
+    cells.append("".join(buf).strip())
+    return cells
 
 
 def parse_markdown(md_text: str) -> tuple[dict, list[dict]]:
@@ -211,28 +245,32 @@ def parse_markdown(md_text: str) -> tuple[dict, list[dict]]:
             blocks.append({"type": "blockquote", "lines": qlines})
             continue
 
-        if "|" in ln and i + 1 < n and re.match(r"^\s*\|?\s*:?-+", lines[i + 1]):
+        if (
+            "|" in ln
+            and i + 1 < n
+            and "|" in lines[i + 1]
+            and _TABLE_DELIM_RE.match(lines[i + 1])
+        ):
             flush_paragraph()
             tl: list[str] = []
             while i < n and "|" in lines[i] and lines[i].strip():
                 tl.append(lines[i])
                 i += 1
-            header = [c.strip() for c in tl[0].strip().strip("|").split("|")]
-            rows = [
-                [c.strip() for c in r.strip().strip("|").split("|")]
-                for r in tl[2:]
-            ]
+            header = _split_table_row(tl[0])
+            rows = [_split_table_row(r) for r in tl[2:]]
             blocks.append({"type": "table", "header": header, "rows": rows})
             continue
 
         if re.match(r"^(\s*)(\d+)\.\s+(.*)$", ln):
             flush_paragraph()
-            items: list[str] = []
+            items: list[dict] = []
+            start = int(re.match(r"^\s*(\d+)\.", ln).group(1))
             while i < n:
                 m = re.match(r"^(\s*)(\d+)\.\s+(.*)$", lines[i])
                 if not m:
                     break
-                item_buf = [m.group(3)]
+                item_text = m.group(3)
+                children: list[str] = []
                 i += 1
                 while (
                     i < n
@@ -240,13 +278,18 @@ def parse_markdown(md_text: str) -> tuple[dict, list[dict]]:
                     and not re.match(r"^(\s*)(\d+)\.\s+", lines[i])
                     and not lines[i].startswith(("- ", "* ", "#", ">"))
                 ):
-                    if lines[i].startswith("  ") or lines[i].startswith("\t"):
-                        item_buf.append(lines[i].strip())
-                        i += 1
-                    else:
+                    if not (lines[i].startswith("  ") or lines[i].startswith("\t")):
                         break
-                items.append(" ".join(item_buf))
-            blocks.append({"type": "ol", "items": items})
+                    sub_line = lines[i].strip()
+                    if re.match(r"^[\-\*]\s+", sub_line):
+                        children.append(re.sub(r"^[\-\*]\s+", "", sub_line))
+                    elif children:
+                        children[-1] += " " + sub_line
+                    else:
+                        item_text += " " + sub_line
+                    i += 1
+                items.append({"text": item_text, "children": children})
+            blocks.append({"type": "ol", "start": start, "items": items})
             continue
 
         if re.match(r"^[\-\*]\s+", ln):
