@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bloque de código</title><style>body{margin:24px;background:#fff;font:400 15px/1.6 Poppins,Arial,sans-serif;color:#1A1A1A}
+.code-block{position:relative;margin:0 0 16px;border-radius:7px;background:#1F2430;box-shadow:0 1.5px 4px rgba(0,0,0,.20);font-family:'JetBrains Mono',Menlo,Consolas,'Courier New',monospace;overflow:hidden}
+.code-block .cb-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 10px 0 14px;min-height:30px}
+.code-block .cb-lang{font:600 10.5px/1 'Poppins',Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#FFCC66}
+.code-block .cb-copy{display:inline-flex;align-items:center;gap:6px;border:1px solid #5C6773;border-radius:6px;background:transparent;color:#CBCCC6;font:500 12px/1 'Poppins',Arial,sans-serif;padding:6px 10px;cursor:pointer}
+.code-block .cb-copy:hover{background:#2A3142;border-color:#CBCCC6}
+.code-block .cb-copy:focus-visible{outline:2px solid #FFCC66;outline-offset:2px}
+.code-block .cb-copy svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.code-block .cb-copy.ok{color:#BAE67E;border-color:#BAE67E}
+.code-block pre{margin:0;padding:8px 16px 14px;color:#CBCCC6;font-size:13px;line-height:1.55;overflow-x:auto;white-space:pre;tab-size:4}
+.code-block pre code{font:inherit}
+</style></head><body><div class="code-block"><div class="cb-bar"><span class="cb-lang">KOTLIN</span><button type="button" class="cb-copy ok" aria-label="Copiar el código al portapapeles"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span class="cb-txt">¡Copiado!</span></button></div><pre><code><span style="color: #FFA759">private</span><span style="color: #CBCCC6"> </span><span style="color: #FFA759">fun</span><span style="color: #CBCCC6"> </span><span style="color: #FFD580">registrarEvento</span><span style="color: #CBCCC6">(mensaje: </span><span style="color: #FFD580">String</span><span style="color: #CBCCC6">) {</span>
+<span style="color: #CBCCC6">   Log.</span><span style="color: #FFD580">d</span><span style="color: #CBCCC6">(TAG, mensaje)        </span><span style="color: #5C6773; font-style: italic">// consola Logcat</span>
+<span style="color: #CBCCC6">   historialEventos.</span><span style="color: #FFD580">add</span><span style="color: #CBCCC6">(mensaje)</span>
+<span style="color: #CBCCC6">}</span>
+</code></pre></div>
+<script>
+document.addEventListener('click',function(e){var b=e.target.closest('.cb-copy');if(!b)return;
+var code=b.closest('.code-block').querySelector('pre').innerText.replace(/\n$/,'');
+function ok(){var t=b.querySelector('.cb-txt'),o=t.textContent;b.classList.add('ok');t.textContent='¡Copiado!';setTimeout(function(){b.classList.remove('ok');t.textContent=o},1600)}
+function fb(){var a=document.createElement('textarea');a.value=code;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();var r=false;try{r=document.execCommand('copy')}catch(_){}document.body.removeChild(a);if(r)ok()}
+if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(code).then(ok,fb)}else{fb()}});
+</script></body></html>

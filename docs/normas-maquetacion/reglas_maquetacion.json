@@ -1,0 +1,1136 @@
+{
+ "version": "2026-10-21",
+ "descripcion": "Reglas de maquetación de Prometeo, Edentia y Sanipro en formato máquina. Fuente de verdad: los capítulos 01-10 de esta carpeta.",
+ "marcas": {
+  "sanipro": {
+   "dark": "#245578",
+   "mid": "#336D93",
+   "body": "#2C4A63",
+   "card": "#EAF5F9",
+   "line": "#CFE7EF",
+   "accent": "#8BD2E5",
+   "zebra": "#F4FAFC",
+   "logo": "sanipro_logo.png",
+   "nombre": "Sanipro",
+   "familia": "sanitaria",
+   "pptx_paleta": [
+    "245578",
+    "336D93",
+    "5A7E90",
+    "6B8194",
+    "8A9BA8",
+    "8BD2E5",
+    "CFE7EF",
+    "D8E9EF",
+    "EAF5F9",
+    "F4FAFC",
+    "FFFFFF"
+   ]
+  },
+  "edentia": {
+   "dark": "#152932",
+   "mid": "#2C4954",
+   "body": "#2C4954",
+   "card": "#EDF3F0",
+   "line": "#C7D8D1",
+   "accent": "#C7D8D1",
+   "zebra": "#F6FAF8",
+   "logo": "edentia_logo.png",
+   "nombre": "Edentia",
+   "familia": "dental",
+   "pptx_paleta": [
+    "152932",
+    "2C4954",
+    "4F6167",
+    "6E8187",
+    "7C8E93",
+    "C7D8D1",
+    "DCE7E1",
+    "EDF3F0",
+    "F1E8D9",
+    "F6FAF8",
+    "FFFFFF"
+   ]
+  },
+  "prometeo": {
+   "dark": "#152A1D",
+   "mid": "#2C4436",
+   "body": "#3D4A40",
+   "card": "#F7F3EE",
+   "line": "#F3E6DA",
+   "accent": "#E6945A",
+   "zebra": "#FBF8F5",
+   "logo": "prometeo_logo.png",
+   "nombre": "Prometeo",
+   "familia": "informática, marketing, administración",
+   "pptx_paleta": [
+    "E6945A",
+    "FFFFFF",
+    "152A1D",
+    "6B7269",
+    "4A5449",
+    "F3E6DA",
+    "FBF8F5",
+    "2C4436",
+    "F7F3EE",
+    "8C8377"
+   ]
+  }
+ },
+ "contraste_minimo": {
+  "texto_normal": 4.5,
+  "texto_grande": 3.0,
+  "nota": "El acento nunca es color de texto sobre fondo claro (2,40 / 1,48 / 1,69)."
+ },
+ "contrastes_medidos": [
+  {
+   "marca": "prometeo",
+   "combinacion": "Cuerpo (body) sobre blanco",
+   "texto": "#3D4A40",
+   "fondo": "#FFFFFF",
+   "ratio": 9.33,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Título (dark) sobre blanco",
+   "texto": "#152A1D",
+   "fondo": "#FFFFFF",
+   "ratio": 15.21,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Subtítulo/etiqueta (mid) sobre blanco",
+   "texto": "#2C4436",
+   "fondo": "#FFFFFF",
+   "ratio": 10.57,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Acento sobre blanco (texto)",
+   "texto": "#E6945A",
+   "fondo": "#FFFFFF",
+   "ratio": 2.4,
+   "nivel": "FALLA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Cuerpo sobre tarjeta",
+   "texto": "#3D4A40",
+   "fondo": "#F7F3EE",
+   "ratio": 8.44,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Blanco sobre dark (cabecera tabla/portada)",
+   "texto": "#FFFFFF",
+   "fondo": "#152A1D",
+   "ratio": 15.21,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Acento sobre dark (kicker de portada)",
+   "texto": "#E6945A",
+   "fondo": "#152A1D",
+   "ratio": 6.34,
+   "nivel": "AA"
+  },
+  {
+   "marca": "prometeo",
+   "combinacion": "Dark sobre acento (chip numérico)",
+   "texto": "#152A1D",
+   "fondo": "#E6945A",
+   "ratio": 6.34,
+   "nivel": "AA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Cuerpo (body) sobre blanco",
+   "texto": "#2C4954",
+   "fondo": "#FFFFFF",
+   "ratio": 9.6,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Título (dark) sobre blanco",
+   "texto": "#152932",
+   "fondo": "#FFFFFF",
+   "ratio": 15.05,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Subtítulo/etiqueta (mid) sobre blanco",
+   "texto": "#2C4954",
+   "fondo": "#FFFFFF",
+   "ratio": 9.6,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Acento sobre blanco (texto)",
+   "texto": "#C7D8D1",
+   "fondo": "#FFFFFF",
+   "ratio": 1.48,
+   "nivel": "FALLA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Cuerpo sobre tarjeta",
+   "texto": "#2C4954",
+   "fondo": "#EDF3F0",
+   "ratio": 8.54,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Blanco sobre dark (cabecera tabla/portada)",
+   "texto": "#FFFFFF",
+   "fondo": "#152932",
+   "ratio": 15.05,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Acento sobre dark (kicker de portada)",
+   "texto": "#C7D8D1",
+   "fondo": "#152932",
+   "ratio": 10.16,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "edentia",
+   "combinacion": "Dark sobre acento (chip numérico)",
+   "texto": "#152932",
+   "fondo": "#C7D8D1",
+   "ratio": 10.16,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Cuerpo (body) sobre blanco",
+   "texto": "#2C4A63",
+   "fondo": "#FFFFFF",
+   "ratio": 9.26,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Título (dark) sobre blanco",
+   "texto": "#245578",
+   "fondo": "#FFFFFF",
+   "ratio": 7.94,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Subtítulo/etiqueta (mid) sobre blanco",
+   "texto": "#336D93",
+   "fondo": "#FFFFFF",
+   "ratio": 5.6,
+   "nivel": "AA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Acento sobre blanco (texto)",
+   "texto": "#8BD2E5",
+   "fondo": "#FFFFFF",
+   "ratio": 1.69,
+   "nivel": "FALLA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Cuerpo sobre tarjeta",
+   "texto": "#2C4A63",
+   "fondo": "#EAF5F9",
+   "ratio": 8.35,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Blanco sobre dark (cabecera tabla/portada)",
+   "texto": "#FFFFFF",
+   "fondo": "#245578",
+   "ratio": 7.94,
+   "nivel": "AAA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Acento sobre dark (kicker de portada)",
+   "texto": "#8BD2E5",
+   "fondo": "#245578",
+   "ratio": 4.71,
+   "nivel": "AA"
+  },
+  {
+   "marca": "sanipro",
+   "combinacion": "Dark sobre acento (chip numérico)",
+   "texto": "#245578",
+   "fondo": "#8BD2E5",
+   "ratio": 4.71,
+   "nivel": "AA"
+  }
+ ],
+ "presentaciones": {
+  "lienzo_pt": [
+   720,
+   405
+  ],
+  "margen_pt": 39.6,
+  "escala_si_960pt": 0.75,
+  "tipografia": "Poppins",
+  "orden_diapositivas": {
+   "prometeo": [
+    "portada",
+    "seccion",
+    "concepto",
+    "ejemplo",
+    "actividad",
+    "galeria",
+    "ejemplo_visual",
+    "cierre"
+   ],
+   "edentia": [
+    "portada",
+    "seccion",
+    "concepto",
+    "ejemplo",
+    "actividad",
+    "ejemplo_visual",
+    "galeria",
+    "cierre"
+   ],
+   "sanipro": [
+    "portada",
+    "seccion",
+    "concepto",
+    "ejemplo",
+    "actividad",
+    "ejemplo_visual_1",
+    "ejemplo_visual_2",
+    "galeria",
+    "cierre"
+   ]
+  },
+  "tamanos_pt": {
+   "titulo": [
+    24,
+    25
+   ],
+   "cuerpo": [
+    12,
+    14
+   ],
+   "tarjetas_tablas_esquemas": [
+    11,
+    12
+   ],
+   "etiquetas_pies": [
+    10,
+    10.5
+   ],
+   "codigo_min": 10,
+   "codigo_ideal": [
+    11,
+    13
+   ]
+  },
+  "portada": {
+   "titulo_pt": 38,
+   "escalon_titulo_largo_pt": [
+    34,
+    30,
+    28,
+    26,
+    24
+   ],
+   "ciclo_pt": 12,
+   "asignatura_pt": 15,
+   "profesor_pt": 12,
+   "fecha_pt": 11,
+   "formato_fecha": "dd / mm / aaaa",
+   "asignatura_en_mayusculas": false,
+   "correo": false
+  },
+  "umbrales": {
+   "imagen_deformada_pct": 6,
+   "imagen_baja_ppi": 96,
+   "texto_pequeno_pt": 9.6,
+   "texto_pequeno_max_pct": 25,
+   "thin_afectado_pct": 45,
+   "verde_fuera_marca": "g>100 y g>r+25 y g>b+25 (30 dpi, media>0,002)",
+   "pptx_pesado_mb": 15
+  },
+  "geometria_prometeo": {
+   "0": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 44.6,
+     "w": 432.0,
+     "h": 25.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "PLANTILLA DE CLASE"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 133.2,
+     "w": 576.0,
+     "h": 122.4,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Tema 1: Título del tema"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 260.6,
+     "w": 540.0,
+     "h": 32.4,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Asignatura  ·  Curso o nivel  ·  Duración estimada"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 337.0,
+     "w": 324.0,
+     "h": 23.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Nombre del profesor o profesora"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 358.6,
+     "w": 324.0,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "dd / mm / aaaa"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "1": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 367.2,
+     "y": 39.6,
+     "w": 313.2,
+     "h": 331.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "01"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 154.8,
+     "w": 360.0,
+     "h": 25.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "SECCIÓN 1"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 180.0,
+     "w": 403.2,
+     "h": 115.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Título de la sección | o bloque de contenido"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "2": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 27.4,
+     "w": 396.0,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "TEMA 1 · EXPLICACIÓN"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 568.8,
+     "y": 46.8,
+     "w": 111.6,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "CONCEPTO"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 44.6,
+     "w": 453.6,
+     "h": 43.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Título del concepto"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 64.8,
+     "y": 126.0,
+     "w": 590.4,
+     "h": 223.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Escribe aquí la explicación del concepto: idea principal, definición, "
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "3": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 27.4,
+     "w": 396.0,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "TEMA 1 · APLICACIÓN PRÁCTICA"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 46.8,
+     "w": 93.6,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "EJEMPLO"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 86.4,
+     "w": 612.0,
+     "h": 39.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Título del ejemplo o caso práctico"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 64.8,
+     "y": 174.2,
+     "w": 590.4,
+     "h": 172.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Describe aquí el caso, situación real o ejemplo que ayude a entender e"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 632.3,
+     "y": 99.5,
+     "w": 24.2,
+     "h": 24.2,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "4": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 27.4,
+     "w": 396.0,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "TEMA 1 · ACTIVIDAD"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 51.2,
+     "y": 58.4,
+     "w": 21.4,
+     "h": 21.4,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 97.2,
+     "y": 46.8,
+     "w": 446.4,
+     "h": 44.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Actividad: nombre del ejercicio"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 565.1,
+     "y": 62.5,
+     "w": 10.4,
+     "h": 10.4,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 586.8,
+     "y": 52.6,
+     "w": 90.0,
+     "h": 30.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "__ minutos"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 64.8,
+     "y": 136.8,
+     "w": 25.9,
+     "h": 25.9,
+     "relleno": "BACKGROUND (5)",
+     "texto": "1"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 103.0,
+     "y": 133.2,
+     "w": 547.2,
+     "h": 36.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Explica en qué consiste la actividad y qué se espera del alumnado."
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 64.8,
+     "y": 207.4,
+     "w": 25.9,
+     "h": 25.9,
+     "relleno": "BACKGROUND (5)",
+     "texto": "2"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 103.0,
+     "y": 203.8,
+     "w": 547.2,
+     "h": 36.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Detalla los pasos o instrucciones que deben seguir paso a paso."
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 64.8,
+     "y": 277.9,
+     "w": 25.9,
+     "h": 25.9,
+     "relleno": "BACKGROUND (5)",
+     "texto": "3"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 103.0,
+     "y": 274.3,
+     "w": 547.2,
+     "h": 36.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Indica cómo se pondrá en común o se corregirá el ejercicio."
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "5": [
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 27.4,
+     "w": 396.0,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "TEMA 1 · GALERÍA VISUAL"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 44.6,
+     "w": 612.0,
+     "h": 43.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Ejemplos en imágenes"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 125.0,
+     "y": 179.4,
+     "w": 22.1,
+     "h": 22.1,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 39.6,
+     "y": 306.0,
+     "w": 193.0,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Pie de foto 1"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 337.4,
+     "y": 179.4,
+     "w": 22.1,
+     "h": 22.1,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 252.0,
+     "y": 306.0,
+     "w": 193.0,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Pie de foto 2"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 549.8,
+     "y": 179.4,
+     "w": 22.1,
+     "h": 22.1,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 464.4,
+     "y": 306.0,
+     "w": 193.0,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Pie de foto 3"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "6": [
+    {
+     "tipo": "PICTURE",
+     "x": 151.7,
+     "y": 182.3,
+     "w": 24.2,
+     "h": 24.2,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 28.8,
+     "y": 226.8,
+     "w": 270.0,
+     "h": 28.8,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Sustituye por tu fotografía"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 367.2,
+     "y": 39.6,
+     "w": 313.2,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "TEMA 1 · EJEMPLO VISUAL"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 367.2,
+     "y": 63.4,
+     "w": 313.2,
+     "h": 50.4,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Qué observar en la imagen"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 403.2,
+     "y": 136.8,
+     "w": 277.2,
+     "h": 54.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Primer elemento o detalle que quieras señalar de la fotografía."
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 403.2,
+     "y": 212.4,
+     "w": 277.2,
+     "h": 54.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Segundo elemento: relación con el concepto explicado antes."
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 403.2,
+     "y": 288.0,
+     "w": 277.2,
+     "h": 54.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Tercer elemento o pregunta para lanzar al grupo sobre la imagen."
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    }
+   ],
+   "7": [
+    {
+     "tipo": "PICTURE",
+     "x": 345.5,
+     "y": 98.5,
+     "w": 29.0,
+     "h": 29.0,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 0.0,
+     "y": 162.0,
+     "w": 720.0,
+     "h": 61.2,
+     "relleno": "BACKGROUND (5)",
+     "texto": "¿Preguntas?"
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 108.0,
+     "y": 226.8,
+     "w": 504.0,
+     "h": 36.0,
+     "relleno": "BACKGROUND (5)",
+     "texto": "Espacio abierto para dudas, comentarios o reflexiones sobre lo visto h"
+    },
+    {
+     "tipo": "PICTURE",
+     "x": 578.7,
+     "y": 21.6,
+     "w": 101.7,
+     "h": 23.6,
+     "relleno": null,
+     "texto": ""
+    },
+    {
+     "tipo": "AUTO_SHAPE",
+     "x": 637.2,
+     "y": 374.8,
+     "w": 43.2,
+     "h": 21.6,
+     "relleno": "BACKGROUND (5)",
+     "texto": "15"
+    }
+   ]
+  },
+  "logo_pt": {
+   "prometeo": [
+    578.7,
+    21.6,
+    101.7,
+    23.6
+   ],
+   "edentia": [
+    580.1,
+    21.6,
+    100.3,
+    23.6
+   ],
+   "sanipro_portada": [
+    588.2,
+    23.0,
+    92.2,
+    20.7
+   ],
+   "sanipro_contenido": [
+    602.0,
+    26.1,
+    78.4,
+    17.6
+   ]
+  },
+  "galeria_marcos_pt": {
+   "x": [
+    39.6,
+    252.0,
+    464.4
+   ],
+   "y": 118.8,
+   "w": 193.0,
+   "h": 176.4
+  }
+ },
+ "documentos": {
+  "apoyo": {
+   "motor": "plantilla_documento.py",
+   "pagina": "A4",
+   "margenes_mm": {
+    "sup": 29,
+    "lados": 19,
+    "inf": 21
+   },
+   "cuerpo": "Poppins 400 10pt/1.6 izquierda",
+   "h1_pt": 15,
+   "h2_pt": 11.5,
+   "h3_pt": 10,
+   "titulo_pt": 25,
+   "marca_agua": {
+    "ancho_mm": 150,
+    "opacidad": 0.055
+   },
+   "cabecera_logo_alto_mm": 7.5,
+   "pie": "{Marca} by thePower · {título ≤60} | Página n de N"
+  },
+  "anexo_word": {
+   "motor": "docx_a_pdf_marca.py",
+   "pagina": "A4",
+   "margenes_mm": {
+    "sup": 30,
+    "lados": 20,
+    "inf": 24
+   },
+   "cuerpo": "Poppins 400 10.5pt/1.6",
+   "marca_agua_opacidad": 0.06,
+   "logo": "arriba derecha 9 mm"
+  },
+  "temario_prometeo": {
+   "motor": "renderizar_pdf_unidad.py",
+   "pagina": "A4",
+   "margenes_cm": {
+    "sup": 2.2,
+    "der": 3.1,
+    "inf": 2.2,
+    "izq": 2.0
+   },
+   "cuerpo": "Poppins 300 11.5px/1.62 justificado",
+   "h1_px": 19,
+   "h2_px": 14.5,
+   "h3_px": 12.5,
+   "colores": {
+    "verde": "#152A1D",
+    "terracota": "#E6945A",
+    "crema": "#FEFAF3",
+    "verde_tabla": "#CBDECF"
+   },
+   "ruta_imagenes": "Imágenes/",
+   "cornisa": "UT N · CÓDIGO",
+   "codigo": "claro, sin resaltado, JetBrains Mono 9.5px"
+  },
+  "oro_docx": {
+   "pagina": "Letter 21.59x27.94 cm",
+   "margenes_cm": 2.54,
+   "cuerpo": "Arial 12 justificado",
+   "titulo_pt": 20,
+   "h1": {
+    "pt": 16,
+    "color": "#1F4E79"
+   },
+   "h2": {
+    "pt": 13,
+    "color": "#2E75B6"
+   },
+   "caja_azul": {
+    "fondo": "#EAF1FB",
+    "texto": "#2E75B6"
+   },
+   "nota_editorial": "#C0532A",
+   "marcadores_imagen": "#C00000",
+   "codigo": {
+    "fuente": "Consolas 10",
+    "fondo": "#F2F3F5"
+   }
+  }
+ },
+ "markdown_unidad": {
+  "primera_linea": "# Unidad N: Título",
+  "orden": [
+   "# Objetivos de la unidad",
+   "# Introducción",
+   "# N. Sección (con ## N.N.)",
+   "# Mini proyecto guiado",
+   "# Ejercicio",
+   "# Resumen profesionalizante"
+  ],
+  "imagen": "![pie](Imágenes/CÓD-UNN-TIPOnn.png)",
+  "tipos_imagen": [
+   "ESQ",
+   "DIA",
+   "TAB",
+   "CAP",
+   "GRA",
+   "FOT"
+  ],
+  "marcador_sin_resolver": "[CAPTURA|ESQUEMA|DIAGRAMA|TABLA/GRÁFICO: …] en rojo #C00000 negrita",
+  "frontmatter": "no consta en el corpus"
+ },
+ "nombres": {
+  "presentacion": "Presentación Unidad|Tema|Sesión N",
+  "carpeta_plataforma": "Recursos extras",
+  "termino_por_defecto": "Unidad (salvo que el profesor use Tema)",
+  "mismo_termino_en": [
+   "portada",
+   "archivo",
+   "listado"
+  ],
+  "pdf_archivo": "<ASIGNATURA>_Presentacion_Unidad_<N>.pdf (corto, sin tildes, rayas ni comas)"
+ },
+ "test_xlsx": {
+  "hoja": "Test_FP",
+  "columnas": [
+   "Id",
+   "Question",
+   "Answer 1",
+   "Answer 2",
+   "Answer 3",
+   "Answer 4",
+   "Correct Answer",
+   "Answer Explain",
+   "UD",
+   "@"
+  ],
+  "preguntas": 90,
+  "explicacion_caracteres": [
+   480,
+   655
+  ],
+  "cobertura_fuentes_min": 0.75
+ },
+ "codigo": {
+  "estilo": "Ayu Mirage",
+  "fondo": "#1F2430",
+  "texto": "#CBCCC6",
+  "palabras_clave": "#FFA759",
+  "tipos_funciones_tags": "#FFD580",
+  "cadenas": "#BAE67E",
+  "numeros_operadores_constantes": "#FFCC66",
+  "comentarios": "#5C6773 (cursiva)",
+  "error": "#FF3333",
+  "etiqueta_lenguaje": "#FFCC66",
+  "boton_copiar": "solo en salidas web (HTML); PDF, Word y pptx: texto real seleccionable con espacios normales",
+  "componente": "layout_studio/componentes/bloque_codigo_ayu_mirage.html",
+  "fuentes": {
+   "web_pdf": "JetBrains Mono",
+   "word_pptx": "Consolas / Courier New"
+  }
+ },
+ "marca_de_agua": {
+  "obligatoria": true,
+  "formatos": [
+   "pdf",
+   "docx"
+  ],
+  "imagen": "logo de la marca",
+  "ancho_mm": 150,
+  "opacidad": 0.055,
+  "posicion": "centrada respecto a la página",
+  "capa": "detrás del texto",
+  "repite_en": "todas las páginas",
+  "pendiente_en": [
+   "renderizar_pdf_unidad.py",
+   "generar_hoja_ruta.py"
+  ]
+ },
+ "descargas": {
+  "presentacion": [
+   "pptx",
+   "pdf"
+  ],
+  "documento": [
+   "docx",
+   "pdf"
+  ],
+  "temario_unidad": [
+   "md",
+   "pdf",
+   "scorm",
+   "docx (propuesta)"
+  ],
+  "test": [
+   "xlsx"
+  ],
+  "web": [
+   "html con botón copiar"
+  ]
+ },
+ "word": {
+  "plantillas": "plantillas_word/plantilla_<marca>.docx y ejemplo_<marca>.docx",
+  "generador": "script interno de generación",
+  "pagina": "A4",
+  "margenes_mm": {
+   "sup": 29,
+   "lados": 19,
+   "inf": 21,
+   "cabecera": 10,
+   "pie": 9
+  },
+  "idioma": "es-ES",
+  "cuerpo": "Poppins 10 pt, interlineado 1,6, izquierda",
+  "titulo_pt": 25,
+  "h1_pt": 15,
+  "h2_pt": 11.5,
+  "h3_pt": 10,
+  "pesos": "SemiBold/Medium -> Poppins + negrita",
+  "tabla": {
+   "letra_pt": 8.8,
+   "cabecera": "dark, texto blanco, se repite",
+   "filas_no_se_parten": true
+  },
+  "codigo_estilo": "Código (Consolas 8.4 pt, sombreado #1F2430)"
+ }
+}

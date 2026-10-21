@@ -1,0 +1,45 @@
+{
+    "$schema": "../brand.schema.json",
+    "slug": "edentia",
+    "name": "Edentia",
+    "font_family": "Poppins",
+    "colors": {
+        "primary_dark": "#152932",
+        "primary_mid": "#2C4954",
+        "primary_light": "#C7D8D1",
+        "text": "#2C4954",
+        "text_soft": "#2C4954",
+        "line": "#C7D8D1",
+        "bg_soft": "#F6FAF8",
+        "quote_bg": "#EDF3F0",
+        "white": "#FFFFFF",
+        "table_header_bg": "#152932",
+        "header_rule": "#C7D8D1",
+        "footer_rule": "#C7D8D1",
+        "heading": "#152932",
+        "page_number": "#2C4954"
+    },
+    "font_files": {
+        "regular": "fonts/regular.ttf",
+        "bold": "fonts/bold.ttf",
+        "medium": "fonts/medium.ttf",
+        "light": "fonts/light.ttf",
+        "italic": "fonts/italic.ttf",
+        "mono": "fonts/mono.ttf"
+    },
+    "logo_file": "logo.png",
+    "logo_fallback_text": "Edentia by thePower",
+    "document_author": "Edentia by thePower",
+    "layout_defaults": {
+        "justify": false,
+        "margin_left": 54,
+        "margin_right": 54,
+        "margin_top": 82,
+        "margin_bottom": 60,
+        "body_size": 10,
+        "body_lead": 16,
+        "h1_size": 15,
+        "h2_size": 11.5,
+        "h3_size": 10
+    }
+}
